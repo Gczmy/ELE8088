@@ -45,7 +45,6 @@ for mu in np.linspace(0, mu_max.value, 10):     # divide [0, mu_max] to 10
     sp_x_cache.append(sp_x)     # save the sp(x)'s value every loop
     mu_cache.append(mu)         # save the mu's value every loop
     Var_ii_cache.append(Var_ii.value)
-print("Error = %.2f" % problem.value)
 
 # Plotting of solution
 # -----------------------------
