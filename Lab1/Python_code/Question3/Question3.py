@@ -42,12 +42,14 @@ for i in range(N):
 P_N = P[:, :, 0]      # solves DARE
 P_N, _, K = ctrl.dare(A, B, Q, R)
 K = -K
+print('K=')
 print(K)
+
 # Simulate the closed-loop system with the above controller:
 # Simulate x(t+1) = Ax(t) + Bu(t), where u(t) = Kx(t), i.e.,
-# simulate x(t+1) = (A+BK)x(t) --- start from any initial state you like
+# simulate x(t+1) = (A+BK)x(t) --- start from any initial state
 x = np.array([[19], [-2]])
-u0 = K[0].T @ x     # different with Dr. P.S: u0 = K @ x
+u0 = K[0].T @ x     # different with Dr P.S: u0 = K @ x
 u_star = u0
 x_star = x
 ut = []     # a list of ut
@@ -75,7 +77,7 @@ plt.legend()        # show labels
 plt.figure(2)
 plt.title('xt vs time')
 plt.xlabel('time')
-plt.ylabel('state')      # plot with time of x, state of y
+plt.ylabel('states')      # plot with time of x, states of y
 plt.plot(xt[0, :], label='x1')
 plt.plot(xt[1, :], label='x2')
 plt.legend()        # show labels

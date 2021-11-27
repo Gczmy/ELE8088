@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 # -----------------------------
 n = 2       # 2 states
 m = 1       # 1 input
-N = 5
+N = 50
 
 A = np.array([[0.9, 1.5], [1.3, -0.7]])
 B = np.array([[0.5], [0.2]])
@@ -43,17 +43,22 @@ for i in range(N):
     P_N22.append(P[1, 1, N - i - 1])        # save the P_{N,2,2}'s value every loop
     # error = P_curr - P[:, :, N - i - 1]
     # print(np.linalg.norm(error, np.inf))
-    print(P[:, :, N - i - 1])
+    if i < 5:
+        print('P_%d:' % (i+1))
+        print(P[:, :, N - i - 1])
+print('P_N:')
+print(P[:, :, N - i - 1])
 
 # determine an optimal stationary control law, i.e., determine K
 P_N = P[:, :, 0]      # solves DARE
 P_N, _, K = ctrl.dare(A, B, Q, R)
 K = -K
-print("DARE:")
+print("P solves DARE:")
 print(P_N)
+
 # Plotting of solution
 # -----------------------------
-plt.title('Figure.P_N vs N')
+plt.title('P_N vs N')
 plt.rcParams['font.size'] = '14'
 plt.xlabel('N')
 plt.ylabel('P_N')
@@ -62,4 +67,3 @@ plt.plot(P_N12, label='P_N12')
 plt.plot(P_N22, label='P_N22')
 plt.legend()        # show labels
 plt.show()
-plt.savefig('q2_iii.png')

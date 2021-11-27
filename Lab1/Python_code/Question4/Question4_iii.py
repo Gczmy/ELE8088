@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# @File    : Question4.py
+# @File    : Question4iii.py
 # @Author  : Zichi Zhang
-# @Date    : 2021/11/17
+# @Date    : 2021/11/27
 # @Software: PyCharm
 
 import numpy as np
@@ -15,8 +15,7 @@ import matplotlib.pyplot as plt
 # -----------------------------
 n = 2       # 2 states
 m = 1       # 1 input
-A = np.array([[0.9, 1.5], [1.3, -0.7]])   # todo:问为什么[[0.9, 1.5], [1.3, -0.7]]不行？
-# A = np.array([[1, 1], [1, 0]])
+A = np.array([[0.9, 1.5], [1.3, -0.7]])
 B = np.array([[0.5], [0.2]])
 Q = np.eye(2)      # Q = I2
 R = 10
@@ -67,43 +66,12 @@ for i in range(N):
 P = P[:, :, 0]      # solves DARE
 P, _, K = ctrl.dare(A, B, Q, R)
 K = -K
-# print(P)
 xN = x_seq[:, N-1]
 cost += 0.5*cp.quad_form(xN, P)     # terminal cost
 constraints += [x_min <= xN, xN <= x_max]       # terminal constraints (x_min <= xN <= x_max)
 
-# Compute alpha using Equation
-H = np.eye(2)
-H = np.vstack((H, K))
-H = np.vstack((H, -np.eye(2)))
-H = np.vstack((H, -K))      # H = [[I], [K], [-I], [-K]]
-b = np.array([[1], [1], [1], [1], [1], [1]])        # b = [[x_{max}], [u_{max}], [-x_{min}], [-u_{min}]]
-
-# 求P_N的(-1/2)次方
-# v 为特征值    Q 为特征向量
-v, Q = np.linalg.eig(P)
-# print(v)
-V = np.diag(v**(-0.5))
-# print(V)
-# P_N = Q * V * Q**-1
-P = np.dot(np.dot(Q, V, np.linalg.inv(Q)), np.linalg.inv(Q))
-
-# 求alpha的最小值
-for i in range(6):
-    alpha = 1/(np.linalg.norm(P @ np.reshape(H[i], (2, 1)))**2)     # todo:问为什么cp.norm2不行？
-    if i == 0:
-        alpha_temp = alpha
-    if alpha < alpha_temp:
-        alpha_temp = alpha
-    alpha_temp = alpha
-# print(alpha)
-
-# # constraints of MPC
-# constraints_mpc = constraints + [cp.quad_form(xN, P) <= alpha]
-# problem = cp.Problem(cp.Minimize(cost), constraints_mpc)
-AI = np.eye(2)
-
 # constraints of MPC Q4 iii
+AI = A - np.eye(2)  # the matrix (A-I)
 constraints_mpc = constraints + [cp.norm_inf(AI@xt_var+B@ut_var) <= 0.05]
 problem = cp.Problem(cp.Minimize(cost), constraints_mpc)
 
@@ -114,20 +82,22 @@ def mpc(state):
     return u_seq[:, 0].value
 
 
-x_init = np.array([0.01, 0.04])
+# Solve the problem with MPC
+# -----------------------------
+x_init = np.array([0.01, 0.04])     # any feasible initial states
 x_current = x_init
 
-Nsim = 40
-u_cache = []
-x_cache = x_current
-V_N_cache = []
-for t in range(Nsim):
+N_sim = 40
+u_cache = []    # a list to save u_mpc
+x_cache = x_current     # a list to save x_t
+V_N_cache = []  # a list to save the cost value V_N^star
+for t in range(N_sim):
     u_mpc = mpc(x_current)
     u_cache.append(u_mpc)
     x_current = A @ x_current + B @ u_mpc
     x_cache = np.concatenate((x_cache, x_current))
     V_N_cache.append(cost.value)
-x_cache = np.reshape(x_cache, (Nsim+1, n))
+x_cache = np.reshape(x_cache, (N_sim+1, n))
 
 # Plotting of solution
 # -----------------------------
@@ -148,16 +118,16 @@ plt.xlabel('Time, t')
 plt.ylabel('control actions, u_t')
 
 plt.figure(3)
-plt.title('States situation')
-plt.xlim([-0.1, 0.1])
-plt.ylim([-0.1, 0.1])
-plt.plot(x_cache[:, 0], x_cache[:, 1], '-o')
-plt.xlabel('x1')
-plt.ylabel('x2')
-
-plt.figure(4)
 plt.title('V_N_star vs time')
 plt.plot(V_N_cache)
 plt.xlabel('Time, t')
 plt.ylabel('V_N_star')
+
+# plt.figure(4)
+# plt.title('States situation')
+# plt.xlim([-0.1, 0.1])
+# plt.ylim([-0.1, 0.1])
+# plt.plot(x_cache[:, 0], x_cache[:, 1], '-o')
+# plt.xlabel('x1')
+# plt.ylabel('x2')
 plt.show()
