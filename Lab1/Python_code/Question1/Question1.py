@@ -14,6 +14,7 @@ n = 1000    # Dimension of x
 m = 100     # Dimension of b
 x_zero = 0  # Number of zero elements of x
 mu = 0
+epsilon = np.finfo(np.float32).eps  # to get the machine epsilon for a particular float type using np.finfo: 1.19209e-07
 
 # Random data
 # -----------------------------
@@ -38,7 +39,7 @@ for mu in np.linspace(0, mu_max.value, 10):     # divide [0, mu_max] to 10
     problem = cp.Problem(objective)
     problem.solve()
     for i in range(n):
-        if x.value[i] < 10**(-7):      # if x < 10^(-7), we can consider that x = 0
+        if x.value[i] < epsilon:      # if x < epsilon, we can consider that x = 0
             x_zero = x_zero + 1     # count the number of zero elements of x
     sp_x = x_zero/n             # the sparsness of x
     x_zero = 0                  # clear before next loop
