@@ -4,7 +4,6 @@
 % Packages
 % --------------------------------------------------------
 \usepackage[utf8]{inputenc}
-\usepackage[foot]{amsaddr}
 \usepackage{amsmath,amsfonts,amssymb,amsthm,mathrsfs,bm}
 \usepackage[margin=0.95in]{geometry}
 \usepackage{color}
@@ -18,6 +17,8 @@
 \usepackage{float}
 \usepackage{fancyhdr}
 \usepackage{subfigure} % 支持多图
+\usepackage{cite}
+\usepackage{url} % bibTex支持引用网页
 
 % --------------------------------------------------------
 % Custom Colours
@@ -109,9 +110,7 @@
         \small Student: Zichi Zhang \ \ \ Student Number: 40299571
     \end{center}
 }
-% \address[Z. Zhang]{Email addresses: \href{mailto:zzhang54@qub.ac.uk}%
-% {zzhang54@qub.ac.uk}}
-% \thanks{Some note goes here.  Version 0.0.1. Last updated:~\today.}
+
 % --------------------------------------------------------
 % Section 1: Lab I - Assignment
 % --------------------------------------------------------
@@ -123,11 +122,10 @@
 % Subsection: Optimisation problem
 % ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 \subsection*{Question 1 [Optimisation problem]}\label{sec:q1}
-(i)This paper chooses a reasonable threshold, $\epsilon>0$, 
+(i)This paper chooses the machine epsilon \cite{ali_m-zero} to be a reasonable threshold, $\epsilon>0$, 
 below which a number is considered to be practically zero. 
 That is, $x$ is considered to be (practically) equal to zero 
-if $\|x\|<\epsilon $. In this paper, $\epsilon$ is considered 
-to $1\times10^{-7}$.
+if $\|x\|<\epsilon $. The Python code is: \href{https://github.com/Gczmy/ELE8088/blob/main/Lab1/Python_code/Question1/Question1.py}{Question 1}.
 The figure of $\mathrm{sp}(x^{\star}(\mu))$ against $\mu$ 
 for $0 \leq \mu \leq \mu_{\mathrm{max}}$ is shown below 
 as Figure \ref{fig:q1_i}:
@@ -154,7 +152,8 @@ And the Figure \ref{fig:q1_ii} shows that the $\left\lVert Ax^{\star}(\mu) - b\r
 % Subsection: IHOCP and DARE
 % ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 \subsection*{Question 2 [IHOCP and DARE]}\label{sec:q2}
-(i)$P_t$ for $t\in\N_{[1,5]}$ is shown below as $P_1$, $P_2$, $P_3$, $P_4$ and $P_5$:
+(i)The Python code is: \href{https://github.com/Gczmy/ELE8088/blob/main/Lab1/Python_code/Question2/Question2.py}{Question 2}. 
+$P_t$ for $t\in\N_{[1,5]}$ is shown below as $P_1$, $P_2$, $P_3$, $P_4$ and $P_5$:
 $$\begin{aligned}
     P_1 &=
     \begin{bmatrix}
@@ -187,8 +186,9 @@ $$\begin{aligned}
 \end{aligned}$$
 
 (ii)Yes, if $N$ is large enough, $P_N$ is approximately equal to a matrix $P$ that solves DARE.
+We can let $N=50$, thus
 \begin{equation}
-    P =
+    P_N =
     \begin{bmatrix}
         3052.97899665 & -4621.98828315 \\
         -4621.98828315 & 7588.73677777
@@ -216,8 +216,8 @@ The Figure \ref{fig:q2_iii} shows that $P_{N,1,1}$, $P_{N,1,2}$ and $P_{N,2,2}$ 
 % Subsection: Simulations of $\kappa ^{\star}_{\infty}$-controlled system
 % ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 \subsection*{Question 3 [Simulations of \texorpdfstring{$\kappa ^{\star}_{\infty}$}{Lg}-controlled system]}\label{sec:q3}
-(i)We can solve the discrete-time algebraic Riccati equation and
-determine an optimal stationary control law, $\kappa^{\star}_{\infty}=Kx$ (i.e., determine $K$).
+(i)The Python code is: \href{https://github.com/Gczmy/ELE8088/blob/main/Lab1/Python_code/Question3/Question3.py}{Question 3}. We can solve the discrete-time algebraic Riccati equation and
+determine an optimal stationary control law, $\kappa^{\star}_{\infty}=Kx$ (i.e., determine $K$). $K$ is shown below:
 \begin{equation}
     K =
     \begin{bmatrix}
@@ -227,20 +227,8 @@ determine an optimal stationary control law, $\kappa^{\star}_{\infty}=Kx$ (i.e.,
 \end{equation}
 \\
 (ii)
-This paper chooses $x_0 = \begin{bmatrix} 19 & -2 \end{bmatrix}^{\tran}$ as the initial state. The figure of the states against time is shown below as Figure \ref{fig:q3_ii_states}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{figures/q3_ii_states.eps}
-%     \caption{states against time}
-%     \label{fig:q3_ii_states}
-% \end{figure}
+This paper chooses $x_0 = \begin{bmatrix} 19 & -2 \end{bmatrix}^{\tran}$ as the initial state. The figure of the states against time is shown below as Figure \ref{fig:q3_ii_states} 
 and the figure of the control actions against time is shown below as Figure \ref{fig:q3_ii_control_actions}:
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{figures/q3_ii_control_actions.eps}
-%     \caption{control actions against time}
-%     \label{fig:q3_ii_control_actions}
-% \end{figure}
 \begin{figure}[H]
     \centering
     \vspace{-0.35cm}
@@ -268,21 +256,9 @@ and the figure of the control actions against time is shown below as Figure \ref
 % Subsection: MPC design and simulations
 % ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 \subsection*{Question 4 [MPC design and simulations]}\label{sec:q4}
-(i)
-The figure of states $x_t$ against time for the MPC-controlled system is shown below as Figure \ref{fig:q4_i_states} 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{figures/q4_i_states.eps}
-%     \caption{$x_t$ against $t$}
-%     \label{fig:q4_i_states}
-% \end{figure}
+(i)The Python code is: \href{https://github.com/Gczmy/ELE8088/blob/main/Lab1/Python_code/Question4/Question4_i%26ii.py}{Question 4 i\&ii}. 
+This paper chooses $x_0 = \begin{bmatrix} 0.01 & 0.04 \end{bmatrix}^{\tran}$ as the initial state. The figure of states $x_t$ against time for the MPC-controlled system is shown below as Figure \ref{fig:q4_i_states} 
 and the figure of control actions $u_t$ against time for the MPC-controlled system is shown below as Figure \ref{fig:q4_i_control_actions}:
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{figures/q4_i_control_actions.eps}
-%     \caption{$u_t$ against $t$}
-%     \label{fig:q4_i_control_actions}
-% \end{figure}
 \begin{figure}[H]
     \centering
     \vspace{-0.35cm}
@@ -291,11 +267,11 @@ and the figure of control actions $u_t$ against time for the MPC-controlled syst
     \subfigcapskip=-5pt
     \subfigure[States against time]{
         \label{fig:q4_i_states}
-        \includegraphics[width=0.45\linewidth]{figures/q3_ii_states.eps}}
+        \includegraphics[width=0.45\linewidth]{figures/q4_i_states.eps}}
     \quad
     \subfigure[Control actions against time]{
         \label{fig:q4_i_control_actions}
-        \includegraphics[width=0.45\linewidth]{figures/q3_ii_control_actions.eps}}
+        \includegraphics[width=0.45\linewidth]{figures/q4_i_control_actions.eps}}
     \caption{States and control actions against time}
     \label{fig:q4_i}
 \end{figure}
@@ -307,7 +283,7 @@ The figure of $V^{\star}_N(x)$ against time for the MPC-controlled system is sho
     \caption{$V^{\star}_{N}(x_t)$ against $t$}
     \label{fig:q4_ii}
 \end{figure}
-(iii)
+(iii)The Python code is: \href{https://github.com/Gczmy/ELE8088/blob/main/Lab1/Python_code/Question4/Question4_iii.py}{Question 4 iii}. 
 The finite horizon optimal control problem:
 \begin{subequations}
     \begin{align}
@@ -434,7 +410,7 @@ The finite horizon optimal control problem after modifying:
     \end{align}
 \end{subequations}
 
-Then, we can simulate it by Python. The figure of states $x_t$ against time is shown below as Figure \ref{fig:q4_iii_states}
+Then, we can simulate it by Python. This paper chooses $x_0 = \begin{bmatrix} 0.01 & 0.04 \end{bmatrix}^{\tran}$ as the initial state. The figure of states $x_t$ against time is shown below as Figure \ref{fig:q4_iii_states}
 and the figure of control actions $u_t$ against time for the MPC-controlled system is shown below as Figure \ref{fig:q4_iii_control_actions}:
 \begin{figure}[H]
     \centering
@@ -460,4 +436,7 @@ The figure of $V^{\star}_{\infty}(x_t) $ against $t$ is shown below as Figure \r
     \label{fig:q4_iii_cost}
 \end{figure}
 
+
+\bibliographystyle{IEEEtran}
+\bibliography{References}
 \end{document}
