@@ -14,13 +14,12 @@ n = 1000    # Dimension of x
 m = 100     # Dimension of b
 x_zero = 0  # Number of zero elements of x
 mu = 0
-epsilon = np.finfo(np.float32).eps  # to get the machine epsilon for a particular float type using np.finfo: 1.19209e-07
 
 # Random data
 # -----------------------------
 x = cp.Variable(n)
 np.random.seed(1)
-A = np.random.rand(m, n)       # Let A be a matrix with random entries drawn from [0,1)
+A = np.random.normal(0, 1, [m, n])  # Let A be a matrix with random entries drawn from N(0,1), N is the Normal distribution
 b = np.ones(m)      # b is a vector with b_i = 1 for i ∈ IN[1,m]
 
 # Define some variables
@@ -37,9 +36,9 @@ Var_ii_cache = []       # a list of var of question (ii)
 for mu in np.linspace(0, mu_max.value, 10):     # divide [0, mu_max] to 10
     objective = cp.Minimize(0.5*cp.norm2(A @ x - b)**2 + mu * cp.norm1(x))      # optimization problem
     problem = cp.Problem(objective)
-    problem.solve()
+    problem.solve(solver=cp.ECOS, feastol=1e-8, reltol=1e-8, abstol=1e-8)   #https://www.cvxpy.org/tutorial/advanced/index.html
     for i in range(n):
-        if x.value[i] < epsilon:      # if x < epsilon, we can consider that x = 0
+        if x.value[i] < 1e-8:      # if x < epsilon, we can consider that x = 0
             x_zero = x_zero + 1     # count the number of zero elements of x
     sp_x = x_zero/n             # the sparsness of x
     x_zero = 0                  # clear before next loop
