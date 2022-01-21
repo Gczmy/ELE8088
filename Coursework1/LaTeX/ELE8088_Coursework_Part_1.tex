@@ -16,9 +16,10 @@
 \usepackage{units}
 \usepackage{cite}
 \usepackage{hyperref}
-\usepackage{subfigure} % 支持多图
 \usepackage{float}
 \usepackage{overpic}
+\usepackage{pgfplots}
+\usepackage{subcaption} % 支持多图
 
 % --------------------------------------------------------
 % Custom Colours
@@ -27,7 +28,9 @@
 \definecolor{Background}{rgb}{0.9,1.0,0.85}
 \definecolor{lrow}{rgb}{0.914,0.918,0.922}
 \definecolor{drow}{rgb}{0.725,0.745,0.769}
-
+\definecolor{yellow-green}{rgb}{0.6, 0.8, 0.2}
+\definecolor{brinkpink}{rgb}{0.98, 0.38, 0.5}
+\definecolor{cornflowerblue}{rgb}{0.39, 0.58, 0.93}
 
 % --------------------------------------------------------
 % Typesetting Python code
@@ -638,39 +641,321 @@ The set of feasible states is shown in Figure \ref{fig:q3_i_Xx} below.
 \begin{figure}[H]
     \centering
     \vspace{-0.35cm}
-    \subfigtopskip=2pt
-    \subfigbottomskip=2pt
-    \subfigcapskip=-5pt
-    \subfigure{
-        \label{fig:q3_i_X}
-        \includegraphics[width=0.45\linewidth]{figures/q3_i_X.pdf}}
-    \quad
-    \subfigure{
-        \label{fig:q3_i_X_x}
-        \includegraphics[width=0.45\linewidth]{figures/q3_i_X_x.pdf}}
+    \includegraphics[width=0.45\linewidth]{figures/q3_i_X.pdf}
+    % \quad
+    \includegraphics[width=0.45\linewidth]{figures/q3_i_X_x.pdf}
     \caption{We denote by $X_t(X_f)$ the set of states that can be steered in no more than $t$
     steps to $X_f$. Observe that $Xt(\{0\})\subseteq Xt'(\{0\})$ for $t < t'$. In
     other words, the larger the terminal set or the larger the prediction horizon is, the larger
     the set of feasible states will be. In the right plot we see three trajectories of the
     MPC-controlled system with $N = 10$, starting from three extreme points of $X_{10}(\{0\})$. The extreme points are $\begin{bsmallmatrix}-2\\2\end{bsmallmatrix}, \begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}, \begin{bsmallmatrix}2\\-2\end{bsmallmatrix}$. The set
-    $X_0(\{0\})$ is shown in all plots.}
-    \label{fig:q3_i_Xx}
+    $X_0(\{0\})$ is shown in all plots.
+    \label{fig:q3_i_Xx}}
 \end{figure}
 The simulation of the MPC-controlled dynamical system is shown in Figure \ref{fig:q3_i_xt_ut} and Figure \ref{fig:q3_i_cost} below.
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.7\linewidth]{figures/q3_i_xt_ut.pdf}
+% \begin{figure}[H]
+%     \centering
+%     \vspace{-0.35cm}
+%     \includegraphics[width=0.7\linewidth]{figures/q3_i_xt_ut.pdf}
+%     \caption{In the above plot we see the states changing of the MPC-
+%     controlled system with $N = 10$, and in the below plot we see the control actions changing of the MPC-
+%     controlled system with $N = 10$, starting from the extreme point $\begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}$. 
+%     We can observe that $x_t$ is steered in $20$ steps to $X_0(\{0\})$.}
+%     \label{fig:q3_i_xt_ut}
+% \end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \vspace{-0.35cm}
+%     \includegraphics[width=0.7\linewidth]{figures/q3_i_cost.pdf}
+%     \caption{The ``energy'' of the system as measured by the Lyapunov function $V^{\star}_{10}$ for the MPC-controlled system with $N = 10$.}
+%     \label{fig:q3_i_cost}
+% \end{figure}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{subfigure}{0.45\linewidth}
+        \begin{tikzpicture}                 % 绘图开始
+            \begin{axis}[                   % 添加坐标
+                % xlabel=$t$,
+                ylabel=$x_t$,
+                xmin=0, xmax=20,
+                ymin=-1, ymax=2.2,
+                xtick distance=2,
+                ytick distance=1,
+                xticklabels=\empty,
+                grid=major,
+                width=13cm,
+                height=6cm,
+                ]
+                \addplot [line width=1pt,color=yellow-green,mark=o] % x_1
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                    (0, 1.600000)
+                    (1, 2.000000)
+                    (2, 1.938000)
+                    (3, 1.386000)
+                    (4, 0.615531)
+                    (5, 0.260837)
+                    (6, 0.101978)
+                    (7, 0.033747)
+                    (8, 0.006417)
+                    (9, -0.003134)
+                    (10, -0.005414)
+                    (11, -0.005042)
+                    (12, -0.003937)
+                    (13, -0.002829)
+                    (14, -0.001936)
+                    (15, -0.001285)
+                    (16, -0.000835)
+                    (17, -0.000534)
+                    (18, -0.000338)
+                    (19, -0.000212)
+                    (20, -0.000132)
+                    (21, -0.000082)
+                    (22, -0.000051)
+                    (23, -0.000031)
+                    (24, -0.000019)
+                    (25, -0.000012)
+                    (26, -0.000007)
+                    (27, -0.000004)
+                    (28, -0.000002)
+                    (29, -0.000001)
+                    (30, -0.000001)
+                    (31, -0.000000)
+                    (32, -0.000000)
+                    (33, -0.000000)
+                    (34, -0.000000)
+                    (35, -0.000000)
+                    (36, -0.000000)
+                    (37, -0.000000)
+                    (38, -0.000000)
+                    (39, -0.000000)
+                    (40, -0.000000)
+                };
+                \addlegendentry{$x_{1}$}
+                \addplot [line width=1pt,color=brinkpink,mark=x] % x_2
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                    (0, 2.000000)
+                    (1, 1.340000)
+                    (2, 0.640000)
+                    (3, -0.053800)
+                    (4, -0.558804)
+                    (5, -0.602123)
+                    (6, -0.496893)
+                    (7, -0.367294)
+                    (8, -0.255780)
+                    (9, -0.171674)
+                    (10, -0.112415)
+                    (11, -0.072342)
+                    (12, -0.045966)
+                    (13, -0.028930)
+                    (14, -0.018075)
+                    (15, -0.011230)
+                    (16, -0.006946)
+                    (17, -0.004281)
+                    (18, -0.002631)
+                    (19, -0.001613)
+                    (20, -0.000988)
+                    (21, -0.000604)
+                    (22, -0.000369)
+                    (23, -0.000225)
+                    (24, -0.000137)
+                    (25, -0.000083)
+                    (26, -0.000051)
+                    (27, -0.000031)
+                    (28, -0.000019)
+                    (29, -0.000011)
+                    (30, -0.000007)
+                    (31, -0.000004)
+                    (32, -0.000003)
+                    (33, -0.000002)
+                    (34, -0.000001)
+                    (35, -0.000001)
+                    (36, -0.000000)
+                    (37, -0.000000)
+                    (38, -0.000000)
+                    (39, -0.000000)
+                    (40, -0.000000)
+                };
+                \addlegendentry{$x_{2}$}
+                \addplot [dashed,line width=1pt,color=red] % x_max
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                    (0, 2)
+                    (1, 2)
+                    (2, 2)
+                    (3, 2)
+                    (4, 2)
+                    (5, 2)
+                    (6, 2)
+                    (7, 2)
+                    (8, 2)
+                    (9, 2)
+                    (10, 2)
+                    (11, 2)
+                    (12, 2)
+                    (13, 2)
+                    (14, 2)
+                    (15, 2)
+                    (16, 2)
+                    (17, 2)
+                    (18, 2)
+                    (19, 2)
+                    (20, 2)
+                    (21, 2)
+                    (22, 2)
+                    (23, 2)
+                    (24, 2)
+                    (25, 2)
+                    (26, 2)
+                    (27, 2)
+                    (28, 2)
+                    (29, 2)                   
+                };
+                \addlegendentry{$x_{\max}$}
+            \end{axis}                         % 结束坐标
+        \end{tikzpicture}                      % 绘图结束
+    \end{subfigure}
+    \\[\baselineskip]
+    \vspace{-20pt}
+    \begin{subfigure}{0.45\linewidth}
+        \begin{tikzpicture}                 % 绘图开始
+            \begin{axis}[                   % 添加坐标
+                xlabel=$t$,
+                ylabel=$u_t$,
+                xmin=0, xmax=20,
+                ymin=-1.1, ymax=0.5,
+                xtick distance=2,
+                ytick distance=0.5,
+                grid=major,
+                width=13cm,
+                height=4cm,
+                ]
+                \addplot [line width=1pt,color=cornflowerblue,mark=o] % u_t
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                    (0, 2.000000)
+                    (0, -1.000000)
+                    (1, -1.000000)
+                    (2, -1.000000)
+                    (3, -0.732809)
+                    (4, 0.036468)
+                    (5, 0.262628)
+                    (6, 0.279594)
+                    (7, 0.229776)
+                    (8, 0.169496)
+                    (9, 0.117891)
+                    (10, 0.079063)
+                    (11, 0.051744)
+                    (12, 0.033285)
+                    (13, 0.021143)
+                    (14, 0.013304)
+                    (15, 0.008311)
+                    (16, 0.005163)
+                    (17, 0.003193)
+                    (18, 0.001968)
+                    (19, 0.001209)
+                    (20, 0.000741)
+                    (21, 0.000454)
+                    (22, 0.000278)
+                    (23, 0.000169)
+                    (24, 0.000103)
+                    (25, 0.000063)
+                    (26, 0.000038)
+                    (27, 0.000023)
+                    (28, 0.000014)
+                    (29, 0.000009)
+                    (30, 0.000005)
+                    (31, 0.000003)
+                    (32, 0.000002)
+                    (33, 0.000001)
+                    (34, 0.000001)
+                    (35, 0.000000)
+                    (36, 0.000000)
+                    (37, 0.000000)
+                    (38, 0.000000)
+                    (39, 0.000000)
+                };
+                \addlegendentry{$u$}
+                \addplot [dashed,line width=1pt,color=red]      % 调用绘图函数，并设置绘图的类型是折线图
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                (0, -1)
+                (1, -1)
+                (2, -1)
+                (3, -1)
+                (4, -1)
+                (5, -1)
+                (6, -1)
+                (7, -1)
+                (8, -1)
+                (9, -1)
+                (10, -1)
+                (11, -1)
+                (12, -1)
+                (13, -1)
+                (14, -1)
+                (15, -1)
+                (16, -1)
+                (17, -1)
+                (18, -1)
+                (19, -1)
+                (20, -1)
+                (21, -1)
+                (22, -1)
+                (23, -1)
+                (24, -1)
+                (25, -1)
+                (26, -1)
+                (27, -1)
+                (28, -1)
+                (29, -1)   
+                };
+                \addlegendentry{$u_{\min}$}
+            \end{axis}                         % 结束坐标
+        \end{tikzpicture}                      % 绘图结束
+    \end{subfigure}
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{In the above plot we see the states changing of the MPC-
-    controlled system with $N = 10$, and in the below plot we see the control actions changing of the MPC-
-    controlled system with $N = 10$, starting from the extreme point $\begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}$. 
-    We can observe that $x_t$ is steered in $20$ steps to $X_0(\{0\})$.}
+        controlled system with $N = 10$, and in the below plot we see the control actions changing of the MPC-
+        controlled system with $N = 10$, starting from the extreme point $\begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}$. 
+        We can observe that $x_t$ is steered in $20$ steps to $X_0(\{0\})$.}
     \label{fig:q3_i_xt_ut}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.7\linewidth]{figures/q3_i_cost.pdf}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            xlabel=$t$,
+            ylabel=$V_{10}^{\star}(x_t)$,
+            xmin=0, xmax=10,
+            ymin=0, ymax=25,
+            xtick distance=1,
+            ytick distance=5,
+            grid=major,
+            width=13cm,
+            height=6.5cm,
+            ]
+            \addplot [line width=1pt,color=orange,mark=x]      % 调用绘图函数，并设置绘图的类型是折线图
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0, 23.751363)
+                (1, 16.255833)
+                (2, 9.490172)
+                (3, 4.337820)
+                (4, 1.882418)
+                (5, 1.192190)
+                (6, 0.693525)
+                (7, 0.358401)
+                (8, 0.169697)
+                (9, 0.075556)
+                (10, 0.032196)
+            };
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{The ``energy'' of the system as measured by the Lyapunov function $V^{\star}_{10}$ for the MPC-controlled system with $N = 10$.}
     \label{fig:q3_i_cost}
 \end{figure}
@@ -718,38 +1003,302 @@ The set of feasible states is shown in Figure \ref{fig:q3_ii_Xx} below.
 \begin{figure}[H]
     \centering
     \vspace{-0.35cm}
-    \subfigtopskip=-2pt
-    \subfigbottomskip=2pt
-    \subfigcapskip=-5pt
-    \subfigure{
-        \label{fig:q3_ii_X}
-        \includegraphics[width=0.47\linewidth]{figures/q3_ii_X.pdf}}
-    \subfigure{
-        \label{fig:q3_ii_X_x}
-        \includegraphics[width=0.47\linewidth]{figures/q3_ii_X_x.pdf}}
+    \includegraphics[width=0.45\linewidth]{figures/q3_ii_X.pdf}
+    \includegraphics[width=0.45\linewidth]{figures/q3_ii_X_x.pdf}
     \caption{We denote by $X_t(X_f)$ the set of states that can be steered in no more than $t$
     steps to $X_f$. Observe that $Xt(O_{\infty})\subseteq Xt'(O_{\infty})$ for $t < t'$. In
     other words, the larger the terminal set or the larger the prediction horizon is, the larger
     the set of feasible states will be. In the right plot we see three trajectories of the
     MPC-controlled system with $N = 10$, starting from three extreme points of $X_{10}(O_\infty)$. The extreme points are $\begin{bsmallmatrix}-2\\2\end{bsmallmatrix}, \begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}, \begin{bsmallmatrix}2\\-2\end{bsmallmatrix}$. The set
-    $O_{\infty}$ is shown in all plots with green colour.}
-    \label{fig:q3_ii_Xx}
+    $O_{\infty}$ is shown in all plots with green colour.
+    \label{fig:q3_ii_Xx}}
 \end{figure}
 The simulation of the MPC-controlled dynamical system is shown in Figure \ref{fig:q3_ii_xt_ut} and Figure \ref{fig:q3_ii_cost} below.
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.7\linewidth]{figures/q3_ii_xt_ut.pdf}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{subfigure}{0.45\linewidth}
+        \begin{tikzpicture}                 % 绘图开始
+            \begin{axis}[                   % 添加坐标
+                % xlabel=$t$,
+                ylabel=$x_t$,
+                xmin=0, xmax=20,
+                ymin=-1, ymax=2.2,
+                xtick distance=2,
+                ytick distance=1,
+                xticklabels=\empty,
+                grid=major,
+                width=13cm,
+                height=6cm,
+                ]
+                \addplot [line width=1pt,color=yellow-green,mark=o] % x_1
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                    (0, 1.600000)
+                    (1, 2.000000)
+                    (2, 1.938000)
+                    (3, 1.386000)
+                    (4, 0.615531)
+                    (5, 0.260837)
+                    (6, 0.101978)
+                    (7, 0.033747)
+                    (8, 0.006417)
+                    (9, -0.003134)
+                    (10, -0.005414)
+                    (11, -0.005042)
+                    (12, -0.003937)
+                    (13, -0.002829)
+                    (14, -0.001936)
+                    (15, -0.001285)
+                    (16, -0.000835)
+                    (17, -0.000534)
+                    (18, -0.000338)
+                    (19, -0.000212)
+                    (20, -0.000132)
+                    (21, -0.000082)
+                    (22, -0.000051)
+                    (23, -0.000031)
+                    (24, -0.000019)
+                    (25, -0.000012)
+                    (26, -0.000007)
+                    (27, -0.000004)
+                    (28, -0.000002)
+                    (29, -0.000001)
+                    (30, -0.000001)
+                    (31, -0.000000)
+                    (32, -0.000000)
+                    (33, -0.000000)
+                    (34, -0.000000)
+                    (35, -0.000000)
+                    (36, -0.000000)
+                    (37, -0.000000)
+                    (38, -0.000000)
+                    (39, -0.000000)
+                    (40, -0.000000)
+                };
+                \addlegendentry{$x_{1}$}
+                \addplot [line width=1pt,color=brinkpink,mark=x] % x_2
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                    (0, 2.000000)
+                    (1, 1.340000)
+                    (2, 0.640000)
+                    (3, -0.053800)
+                    (4, -0.558804)
+                    (5, -0.602123)
+                    (6, -0.496893)
+                    (7, -0.367294)
+                    (8, -0.255780)
+                    (9, -0.171674)
+                    (10, -0.112415)
+                    (11, -0.072342)
+                    (12, -0.045966)
+                    (13, -0.028930)
+                    (14, -0.018075)
+                    (15, -0.011230)
+                    (16, -0.006946)
+                    (17, -0.004281)
+                    (18, -0.002631)
+                    (19, -0.001613)
+                    (20, -0.000988)
+                    (21, -0.000604)
+                    (22, -0.000369)
+                    (23, -0.000225)
+                    (24, -0.000137)
+                    (25, -0.000083)
+                    (26, -0.000051)
+                    (27, -0.000031)
+                    (28, -0.000019)
+                    (29, -0.000011)
+                    (30, -0.000007)
+                    (31, -0.000004)
+                    (32, -0.000003)
+                    (33, -0.000002)
+                    (34, -0.000001)
+                    (35, -0.000001)
+                    (36, -0.000000)
+                    (37, -0.000000)
+                    (38, -0.000000)
+                    (39, -0.000000)
+                    (40, -0.000000)                    
+                };
+                \addlegendentry{$x_{2}$}
+                \addplot [dashed,line width=1pt,color=red] % x_max
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                    (0, 2)
+                    (1, 2)
+                    (2, 2)
+                    (3, 2)
+                    (4, 2)
+                    (5, 2)
+                    (6, 2)
+                    (7, 2)
+                    (8, 2)
+                    (9, 2)
+                    (10, 2)
+                    (11, 2)
+                    (12, 2)
+                    (13, 2)
+                    (14, 2)
+                    (15, 2)
+                    (16, 2)
+                    (17, 2)
+                    (18, 2)
+                    (19, 2)
+                    (20, 2)
+                    (21, 2)
+                    (22, 2)
+                    (23, 2)
+                    (24, 2)
+                    (25, 2)
+                    (26, 2)
+                    (27, 2)
+                    (28, 2)
+                    (29, 2)                   
+                };
+                \addlegendentry{$x_{\max}$}
+            \end{axis}                         % 结束坐标
+        \end{tikzpicture}                      % 绘图结束
+    \end{subfigure}
+    \\[\baselineskip]
+    \vspace{-20pt}
+    \begin{subfigure}{0.45\linewidth}
+        \begin{tikzpicture}                 % 绘图开始
+            \begin{axis}[                   % 添加坐标
+                xlabel=$t$,
+                ylabel=$u_t$,
+                xmin=0, xmax=20,
+                ymin=-1.1, ymax=0.5,
+                xtick distance=2,
+                ytick distance=0.5,
+                grid=major,
+                width=13cm,
+                height=4cm,
+                ]
+                \addplot [line width=1pt,color=cornflowerblue,mark=o] % u_t
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                    (0, -1.000000)
+                    (1, -1.000000)
+                    (2, -1.000000)
+                    (3, -0.732809)
+                    (4, 0.036468)
+                    (5, 0.262628)
+                    (6, 0.279594)
+                    (7, 0.229776)
+                    (8, 0.169496)
+                    (9, 0.117891)
+                    (10, 0.079063)
+                    (11, 0.051744)
+                    (12, 0.033285)
+                    (13, 0.021143)
+                    (14, 0.013304)
+                    (15, 0.008311)
+                    (16, 0.005163)
+                    (17, 0.003193)
+                    (18, 0.001968)
+                    (19, 0.001209)
+                    (20, 0.000741)
+                    (21, 0.000454)
+                    (22, 0.000278)
+                    (23, 0.000169)
+                    (24, 0.000103)
+                    (25, 0.000063)
+                    (26, 0.000038)
+                    (27, 0.000023)
+                    (28, 0.000014)
+                    (29, 0.000009)
+                    (30, 0.000005)
+                    (31, 0.000003)
+                    (32, 0.000002)
+                    (33, 0.000001)
+                    (34, 0.000001)
+                    (35, 0.000000)
+                    (36, 0.000000)
+                    (37, 0.000000)
+                    (38, 0.000000)
+                    (39, 0.000000) 
+                };
+                \addlegendentry{$u$}
+                \addplot [dashed,line width=1pt,color=red]      % 调用绘图函数，并设置绘图的类型是折线图
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                (0, -1)
+                (1, -1)
+                (2, -1)
+                (3, -1)
+                (4, -1)
+                (5, -1)
+                (6, -1)
+                (7, -1)
+                (8, -1)
+                (9, -1)
+                (10, -1)
+                (11, -1)
+                (12, -1)
+                (13, -1)
+                (14, -1)
+                (15, -1)
+                (16, -1)
+                (17, -1)
+                (18, -1)
+                (19, -1)
+                (20, -1)
+                (21, -1)
+                (22, -1)
+                (23, -1)
+                (24, -1)
+                (25, -1)
+                (26, -1)
+                (27, -1)
+                (28, -1)
+                (29, -1)   
+                };
+                \addlegendentry{$u_{\min}$}
+            \end{axis}                         % 结束坐标
+        \end{tikzpicture}                      % 绘图结束
+    \end{subfigure}
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{In the above plot we see the states changing of the MPC-
-    controlled system with $N = 10$, and in the below plot we see the control actions changing of the MPC-
-    controlled system with $N = 10$, starting from the extreme point $\begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}$. 
-    We can observe that $x_t$ is steered in $20$ steps to $O_{\infty}$.}
+        controlled system with $N = 10$, and in the below plot we see the control actions changing of the MPC-
+        controlled system with $N = 10$, starting from the extreme point $\begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}$. 
+        We can observe that $x_t$ is steered in $20$ steps to $O_{\infty}$.}
     \label{fig:q3_ii_xt_ut}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.7\linewidth]{figures/q3_ii_cost.pdf}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            xlabel=$t$,
+            ylabel=$V_{10}^{\star}(x_t)$,
+            xmin=0, xmax=10,
+            ymin=0, ymax=25,
+            xtick distance=1,
+            ytick distance=5,
+            grid=major,
+            width=13cm,
+            height=6.5cm,
+            ]
+            \addplot [line width=1pt,color=orange,mark=x]      % 调用绘图函数，并设置绘图的类型是折线图
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0, 23.751363)
+                (1, 16.255833)
+                (2, 9.490172)
+                (3, 4.337820)
+                (4, 1.882418)
+                (5, 1.192190)
+                (6, 0.693525)
+                (7, 0.358401)
+                (8, 0.169697)
+                (9, 0.075556)
+                (10, 0.032196)
+            };
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{The ``energy'' of the system as measured by the Lyapunov function $V^{\star}_{10}$ for the MPC-controlled system with $N = 10$.}
     \label{fig:q3_ii_cost}
 \end{figure}
@@ -796,20 +1345,287 @@ MPC controller:
     \end{align}
 \end{subequations}
 The simulation of the MPC-controlled dynamical system is shown in Figure \ref{fig:q3_iii_xt_ut} and Figure \ref{fig:q3_iii_cost} below.
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.7\linewidth]{figures/q3_iii_xt_ut.pdf}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{subfigure}{0.45\linewidth}
+        \begin{tikzpicture}                 % 绘图开始
+            \begin{axis}[                   % 添加坐标
+                % xlabel=$t$,
+                ylabel=$x_t$,
+                xmin=0, xmax=20,
+                ymin=-2.2, ymax=2.2,
+                xtick distance=2,
+                ytick distance=1,
+                xticklabels=\empty,
+                grid=major,
+                width=13cm,
+                height=6cm,
+                ]
+                \addplot [line width=1pt,color=yellow-green,mark=o] % x_1
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                (0, -2.000000)
+                (1, -1.000000)
+                (2, -0.396205)
+                (3, -0.135230)
+                (4, -0.029524)
+                (5, 0.008318)
+                (6, 0.018145)
+                (7, 0.017548)
+                (8, 0.013911)
+                (9, 0.010068)
+                (10, 0.006921)
+                (11, 0.004604)
+                (12, 0.002995)
+                (13, 0.001918)
+                (14, 0.001213)
+                (15, 0.000761)
+                (16, 0.000474)
+                (17, 0.000294)
+                (18, 0.000181)
+                (19, 0.000111)
+                (20, 0.000068)
+                (21, 0.000042)
+                (22, 0.000026)
+                (23, 0.000016)
+                (24, 0.000009)
+                (25, 0.000006)
+                (26, 0.000003)
+                (27, 0.000002)
+                (28, 0.000001)
+                (29, 0.000000)
+                (30, 0.000000)
+                };
+                \addlegendentry{$x_{1}$}
+                \addplot [line width=1pt,color=brinkpink,mark=x] % x_2
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                (0, 2.000000)
+                (1, 2.000000)
+                (2, 1.701897)
+                (3, 1.276342)
+                (4, 0.895998)
+                (5, 0.604272)
+                (6, 0.396858)
+                (7, 0.255845)
+                (8, 0.162726)
+                (9, 0.102460)
+                (10, 0.064018)
+                (11, 0.039761)
+                (12, 0.024580)
+                (13, 0.015139)
+                (14, 0.009296)
+                (15, 0.005695)
+                (16, 0.003482)
+                (17, 0.002126)
+                (18, 0.001296)
+                (19, 0.000790)
+                (20, 0.000481)
+                (21, 0.000292)
+                (22, 0.000178)
+                (23, 0.000108)
+                (24, 0.000066)
+                (25, 0.000040)
+                (26, 0.000024)
+                (27, 0.000015)
+                (28, 0.000009)
+                (29, 0.000005)
+                (30, 0.000003)
+                };
+                \addlegendentry{$x_{2}$}
+                \addplot [dashed,line width=1pt,color=red] % x_min
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                    (0, -2)
+                    (1, -2)
+                    (2, -2)
+                    (3, -2)
+                    (4, -2)
+                    (5, -2)
+                    (6, -2)
+                    (7, -2)
+                    (8, -2)
+                    (9, -2)
+                    (10, -2)
+                    (11, -2)
+                    (12, -2)
+                    (13, -2)
+                    (14, -2)
+                    (15, -2)
+                    (16, -2)
+                    (17, -2)
+                    (18, -2)
+                    (19, -2)
+                    (20, -2)
+                    (21, -2)
+                    (22, -2)
+                    (23, -2)
+                    (24, -2)
+                    (25, -2)
+                    (26, -2)
+                    (27, -2)
+                    (28, -2)
+                    (29, -2)                    
+                };
+                \addlegendentry{$x_{\min}$}
+                \addplot [dashed,line width=1pt,color=red] % x_max
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {
+                    (0, 2)
+                    (1, 2)
+                    (2, 2)
+                    (3, 2)
+                    (4, 2)
+                    (5, 2)
+                    (6, 2)
+                    (7, 2)
+                    (8, 2)
+                    (9, 2)
+                    (10, 2)
+                    (11, 2)
+                    (12, 2)
+                    (13, 2)
+                    (14, 2)
+                    (15, 2)
+                    (16, 2)
+                    (17, 2)
+                    (18, 2)
+                    (19, 2)
+                    (20, 2)
+                    (21, 2)
+                    (22, 2)
+                    (23, 2)
+                    (24, 2)
+                    (25, 2)
+                    (26, 2)
+                    (27, 2)
+                    (28, 2)
+                    (29, 2)                   
+                };
+                \addlegendentry{$x_{\max}$}
+            \end{axis}                         % 结束坐标
+        \end{tikzpicture}                      % 绘图结束
+    \end{subfigure}
+    \\[\baselineskip]
+    \vspace{-20pt}
+    \begin{subfigure}{0.45\linewidth}
+        \begin{tikzpicture}                 % 绘图开始
+            \begin{axis}[                   % 添加坐标
+                xlabel=$t$,
+                ylabel=$u_t$,
+                xmin=0, xmax=20,
+                ymin=-1.05, ymax=0.05,
+                xtick distance=2,
+                ytick distance=0.5,
+                grid=major,
+                width=13cm,
+                height=4cm,
+                ]
+                \addplot [line width=1pt,color=cornflowerblue,mark=o]      % 调用绘图函数，并设置绘图的类型是折线图
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                (0, -0.400000)
+                (1, -0.796205)
+                (2, -0.930352)
+                (3, -0.787733)
+                (4, -0.589356)
+                (5, -0.413164)
+                (6, -0.278398)
+                (7, -0.182729)
+                (8, -0.117750)
+                (9, -0.074869)
+                (10, -0.047130)
+                (11, -0.029442)
+                (12, -0.018284)
+                (13, -0.011302)
+                (14, -0.006960)
+                (15, -0.004274)
+                (16, -0.002618)
+                (17, -0.001601)
+                (18, -0.000977)
+                (19, -0.000596)
+                (20, -0.000363)   
+                };
+                \addlegendentry{$u$}
+                \addplot [dashed,line width=1pt,color=red]      % 调用绘图函数，并设置绘图的类型是折线图
+                coordinates                         % 声明是在迪卡尔坐标系中的数据
+                {                                   % 输入数据
+                (0, -1)
+                (1, -1)
+                (2, -1)
+                (3, -1)
+                (4, -1)
+                (5, -1)
+                (6, -1)
+                (7, -1)
+                (8, -1)
+                (9, -1)
+                (10, -1)
+                (11, -1)
+                (12, -1)
+                (13, -1)
+                (14, -1)
+                (15, -1)
+                (16, -1)
+                (17, -1)
+                (18, -1)
+                (19, -1)
+                (20, -1)
+                (21, -1)
+                (22, -1)
+                (23, -1)
+                (24, -1)
+                (25, -1)
+                (26, -1)
+                (27, -1)
+                (28, -1)
+                (29, -1)   
+                };
+                \addlegendentry{$u_{\min}$}
+            \end{axis}                         % 结束坐标
+        \end{tikzpicture}                      % 绘图结束
+    \end{subfigure}
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{In the above plot we see the states changing of the MPC-
     controlled system with $N = 10$, and in the below plot we see the control actions changing of the MPC-
     controlled system with $N = 10$, starting from the extreme point $\begin{bsmallmatrix}-2\\2\end{bsmallmatrix}$. 
     We can observe that $x_t$ is steered in $20$ steps to $X_f$.}
     \label{fig:q3_iii_xt_ut}
 \end{figure}
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.7\linewidth]{figures/q3_iii_cost.pdf}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            xlabel=$t$,
+            ylabel=$V_{10}^{\star}(x_t)$,
+            xmin=0, xmax=10,
+            ymin=0, ymax=25,
+            xtick distance=1,
+            ytick distance=5,
+            grid=major,
+            width=13cm,
+            height=6.5cm,
+            ]
+            \addplot [line width=1pt,color=orange,mark=x]      % 调用绘图函数，并设置绘图的类型是折线图
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0, 22.053813)
+                (1, 13.903255)
+                (2, 8.273036)
+                (3, 4.355495)
+                (4, 2.088193)
+                (5, 0.937381)
+                (6, 0.401543)
+                (7, 0.166242)
+                (8, 0.067099)
+                (9, 0.026565)
+                (10, 0.010362)    
+            };
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{The ``energy'' of the system as measured by the Lyapunov function $V^{\star}_{10}$ for the MPC-controlled system with $N = 10$.}
     \label{fig:q3_iii_cost}
 \end{figure}
