@@ -101,7 +101,7 @@
 \address[Zichi Zhang and Shihao Chen]{Email addresses: \href{mailto:zzhang54@qub.ac.uk}%
 {zzhang54@qub.ac.uk} and 
 \href{mailto:schen45.ac.uk}{schen45@qub.ac.uk}.}
-\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.0.2. Last updated:~\today.}
+\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.3. Last updated:~\today.}
 
 
 
@@ -112,6 +112,22 @@
 
 \maketitle
 
+\vspace*{\fill}
+\section*{\textbf{Collaboration Statement}}
+\begin{flushleft}
+    From the whole view, coursework Part I is divided into 3 parts which Zichi focused on the 1.1 and Shihao focused on the 1.2 then worked together on the 1.3.
+    Of course, everyone has thought about all questions and proposed appropriate solutions. The above division of work is just to ensure that everyone has a focus.
+    \\ \ \\
+    Since the first time that Part I began, Zichi created a repository on GitHub and shared to Shihao immediately. Thus, we uploaded Python code and \LaTeX\ code, \LaTeX\ output and \LaTeX\ figures to the repository. Everyone uploaded his part on Python code and Zichi was responsible for the design of typing \LaTeX\ while both of us give our own opinions to make the PDF file looks more professional and closer to what Dr Pantelis Sopasakis shows on Canvas. For example, we have tried our best to plot similar figures and they are really much better than the past ones. It really cost us a lot of time on debugging every parameter including the gird and the color and thickness of every line.
+    \\ \ \\
+    On time management, we did not have an exact time to have a meet with each other but every time if anyone was trapped by a challenge for a long time then we would discuss it on the phone or have a Teams meeting to try to complete it and if both of the ways do not work that Zichi would ask Dr Pantelis Sopasakis for a possible hint. Besides this, we spent 8 hours every week on average and we had 5 face-to-face meetings to work these problems out. That was an efficient way when we got together and shared different ideas.
+    \\ \ \\
+    Zichi really helped Shihao a lot on coding and knowledge of this course, Shihao needs to concentrate more on class that can more easily work these out.
+    \\ \ \\
+    During this coursework, we both learned how to use GitHub and used Git commands in our coursework to commit changes. Since Dec. 2021, we totally created more than 14 commits in this repository, we try our best to make this collaborative project better with these useful tools.
+\end{flushleft}
+\vspace*{\fill}
+\newpage
 
 
 % --------------------------------------------------------
@@ -480,8 +496,9 @@ And we also can see that this limit satisfies Equation \eqref{eq:P}.
 Let $f:\R^n\to\R^n$ be a continuously differentiable function with $f(0)=0$. Suppose that there are constants $\beta>0$ and $\eta>0$ so that $\left\lVert Jf(x)-Jf(x')\right\rVert \leq\beta\left\lVert x-x'\right\rVert $, for all $x, x'\in \mathcal{B}_{\eta}$. Define $A=Jf(0)$.
 \\ \\
 (i) Prove that for all $x\in \mathcal{B}_{\eta}$, it is $\left\lVert f(x)-Ax\right\rVert \leq \frac{\beta}{2}\left\lVert x\right\rVert ^2$.
-\\ \\
-\textbf{Proof:} We have
+\\
+\begin{proof}
+    We have
 % \textbf{Proof:} We know Taylor's theorem
 % \begin{align}
 %     f(x)&=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2+\cdots +\frac{f^n(x_0)}{n!}(x-x_0)^n
@@ -503,9 +520,9 @@ Let $f:\R^n\to\R^n$ be a continuously differentiable function with $f(0)=0$. Sup
 \begin{equation}
     \left\lVert Jf(x)-Jf(x')\right\rVert \leq\beta\left\lVert x-x'\right\rVert 
 \end{equation}
-We know the fact that (from the Fundamental Theorem of Calculus)
+We know the fact that (from \emph{the Fundamental Theorem of Calculus})
 \begin{align}
-    f(x)&=\int_{0}^{1}Jf(\tau x)  \,d\tau x 
+    f(x)&=\int_{0}^{1}Jf(\tau x)  \,\dd\tau x 
     % \notag\\
     % &=f(0)+\int_{0}^{1}\left\langle Jf(0+\tau(x-0)),x-0 \right \rangle d\tau
     % \notag\\
@@ -513,41 +530,89 @@ We know the fact that (from the Fundamental Theorem of Calculus)
     % \notag\\
     % &=\left \langle A,x \right \rangle+\int_{0}^{1}\left\langle Jf(\tau x)-Jf(0),x \right \rangle d\tau
 \end{align}
-Then we know \cite{Optimization}
+Then we know (from \emph{LEMMA 1.2.3, Page 22})\cite{Optimization}
+% \begin{equation}
+%     \left\lvert f(y)-f(x)-\left\langle f'(x),y-x \right \rangle\right\rvert \leq\tfrac{L}{2}\left\lVert y-x\right\rVert^2. 
+% \end{equation}
 \begin{align}
-    f(y)&=f(x)+\int_{0}^{1}\left\langle Jf(x+\tau(y-x)),y-x \right \rangle d\tau
-    \notag\\
-    &=f(x)+\left \langle Jf(x),y-x \right \rangle+\int_{0}^{1}\left\langle Jf(x+\tau(y-x))-Jf(x),y-x \right \rangle d\tau
+    f(y)&=f(x)+\int_{0}^{1}\left\langle Jf(x+\tau(y-x)),y-x \right \rangle \,\dd\tau
+    \\
+    &=f(x)+\left \langle Jf(x),y-x \right \rangle+\int_{0}^{1}\left\langle Jf(x+\tau(y-x))-Jf(x),y-x \right \rangle \,\dd\tau
 \end{align}
-For all $x\in \mathcal{B}_{\eta}$, we have (from the Cauchy-Schwarz Inequality)
+Therefore, for all $x\in \mathcal{B}_{\eta}$, we have
 \begin{align}
-    \left\lVert f(x)-Ax\right\rVert\leq\left\lvert f(x)-\left \langle A,x \right \rangle\right\rvert &=\left\lvert \int_{0}^{1}\left\langle Jf(\tau x)-Jf(0),x \right \rangle d\tau\right\rvert 
-    \notag\\
-    &\leq \int_{0}^{1}\left\lVert \left\langle Jf(\tau x)-Jf(0),x \right \rangle \right\rVert d\tau
-    \notag\\
-    &\leq \int_{0}^{1}\left\lVert Jf(\tau x)-Jf(0) \right\rVert \left\lVert x\right\rVert d\tau
-    \notag\\
-    &\leq \int_{0}^{1}\tau\beta\left\lVert x \right\rVert \left\lVert x\right\rVert d\tau
-    \notag\\
+    &\left\lVert f(x)-Ax\right\rVert
+    \\
+    &=\left\lVert f(x)-\left\langle A,x \right\rangle\right\rVert
+    \\
+    &\leq\left\lvert f(x)-\left\langle A,x \right\rangle\right\rvert
+    \\
+    &=\left\lvert f(x)-f(0)-\left\langle Jf(0),x-0 \right\rangle\right\rvert
+    \\
+    &=\left\lvert \int_{0}^{1}\left\langle Jf(\tau x)-Jf(0),x \right \rangle \,\dd\tau\right\rvert 
+    \\
+    &\leq \int_{0}^{1}\left\lvert \left\langle Jf(\tau x)-Jf(0),x \right \rangle \right\rvert \,\dd\tau
+    \\
+    &\leq \int_{0}^{1}\left\lVert Jf(\tau x)-Jf(0) \right\rVert \cdot \left\lVert x\right\rVert \,\dd\tau
+    \\
+    &\leq \int_{0}^{1}\tau\beta\left\lVert x \right\rVert \left\lVert x\right\rVert \,\dd\tau
+    \\
     &=\frac{\beta}{2}\left\lVert x \right\rVert ^2
 \end{align}
+
+\end{proof}
 \
 \\
 (ii) Prove that if $\rho(A)<1$, then the dynamical system $x_{t+1}=f(x_t)$ is locally exponentially stable.
-\\ \\
-\textbf{Proof:} 
+\\
+\begin{proof}
 We have $A=Jf(0)$. Hence $A\in \R^{n\times n}$ has exactly $n$ (complex) eigenvalues, $\lambda_1,\ldots,\lambda_n$. The \textit{spectral radius} of $A$
 is defined as
 \begin{equation}
     \rho(A)=\max\{\left\lvert \lambda_1\right\rvert, \left\lvert \lambda_2\right\rvert,\ldots, \left\lvert \lambda_n\right\rvert \}.
 \end{equation}
-Specifically, we can choose a Lyapunov function $V: V(x)=x^2, x\in\R^n$.
+Specifically, we define $V: V(x)=x^{\tran}Px, x\in\R^n, P\in\Spp^n$.
+\\
+From \emph{Lyapunov exponential stability theorem}, we have
+\begin{equation}
+    V(f(x))-V(x)\leq-c\left\lVert x\right\rVert^{\lambda},\tag{LDC}
+    \label{eq:LDC}
+\end{equation}
+where $X\rightarrow [0,\infty)$ and $\lambda,c>0$, for all $x\in X$. If additionally, there exist $\underline{c}, \overline{c}, r > 0$ such that
+\begin{align}
+    \underline{c}\left\lVert x\right\rVert^{\lambda}\leq V(x), \forall x\in X,\tag{GLB}&
+    \label{eq:GLB}
+    \\
+    V(x)\leq\overline{c}\left\lVert x\right\rVert^{\lambda}, \forall x\in X\cap\mathcal{B}_r,\tag{LUB}&
+    \label{eq:LUB}
+\end{align}
+\begin{equation}
+    V(f(x))-V(x)\leq-c\left\lVert x\right\rVert^{2},
+\end{equation}
+The candidate function, $V(x)=x^{\tran}Px$ satisfies \eqref{eq:LDC}, $V(f(x))-V(x)\leq-\alpha(\left\lVert x\right\rVert)$ if
+\begin{equation}
+    \underbracket[0.5pt]{x^{\tran}A^{\tran}PAx}_{V(Ax)}-\underbracket[0.5pt]{x^{\tran}Px}_{V(x)}\leq-\alpha(\left\lVert x\right\rVert),
+\end{equation}
+for all $x\in\R^n$. Equivalently,
+\begin{equation}
+    x^{\tran}(A^{\tran}PA-P)x\leq-\alpha(\left\lVert x\right\rVert), \tag{LDC$_{\mathrm{lin}}$}
+    \label{eq:LDC_lin}
+\end{equation}
+for all $x\in\R^n$.\\
+We know that $\rho(A)<1$, we have the norm $\left\lVert x\right\rVert=\sqrt{x^{\tran}Qx}$, where $Q\in\Spp^n$ and $\alpha(s)=s^2$. Then, \eqref{eq:LDC_lin} becomes
+\begin{equation}
+    x^{\tran}(A^{\tran}PA-P)x\leq -x^{\tran}Qx,
+\end{equation}
+for all $x\in\R^n$. This holds if
+\begin{equation}
+    A^{\tran}PA-P=-Q.
+\end{equation}
 \\
 We have
 \begin{equation}
     x_{t+1}=Ax_t+h(x_t),
 \end{equation}
-where $A=Jf(0)$ and $h$ is such that $\left\lVert h(x)\right\rVert \leq \frac{L}{2}\left\lVert x\right\rVert ^2$. The dynamical system
+where $A=Jf(0)$ and $h$ is such that $\left\lVert h(x)\right\rVert \leq \tfrac{L}{2}\left\lVert x\right\rVert ^2$. The dynamical system
 \begin{equation}
     x_{t+1}=Ax_t,
 \end{equation}
@@ -557,6 +622,7 @@ is called the linearisation of $x_{t+1}=f(x_t)$ at 0.
     \notag\\
     &=2x_{t+1}Jf(x_t)
 \end{align}
+\end{proof}
 (iii) Prove or disprove (by providing a counterexample) that if $\rho(A)=1$, the system $x_{t+1}=f(x_t)$ is asymptotically stable.
 \\ \\
 \textbf{Proof:} 
