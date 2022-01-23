@@ -101,7 +101,7 @@
 \address[Zichi Zhang and Shihao Chen]{Email addresses: \href{mailto:zzhang54@qub.ac.uk}%
 {zzhang54@qub.ac.uk} and 
 \href{mailto:schen45.ac.uk}{schen45@qub.ac.uk}.}
-\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.3. Last updated:~\today.}
+\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.6. Last updated:~\today.}
 
 
 
@@ -124,9 +124,9 @@
     % Zichi really helped Shihao a lot on coding and knowledge of this course, Shihao needs to be more concentrated on the class that he can more easily work these questions out.
     % Also, Shihao made a plenty of ideas about the figures and his amazing imagination helped a lot.
     % \\ \ \\
-    During this coursework, we both learned how to use GitHub and used Git commands in our coursework to commit changes. Since Dec. 2021, we totally created more than 14 commits in this repository, we try our best to make this collaborative project better with these useful tools.
+    During this coursework, we both learned how to use GitHub and used Git commands in our coursework to commit changes. Since Dec. 2021, we totally created more than 15 commits in this repository, we try our best to make this collaborative project better with these useful tools.
     But in the same way, we still have a lot to improve, for example, we are biased in the division of labor. The difficulty of the three parts is not equal. Next time, we can better balance the difficulty of the two person. 
-    Likewise, we need to strengthen our proficiency in coding and using various tools. We spent a lot of time getting familiar with these software in the beginning, and we can avoid these problems next time.
+    Likewise, we need to strengthen our proficiency in coding and using various tools. We spent a lot of time getting familiar with these softwares in the beginning, and we can avoid these problems next time.
     \vspace*{\fill}
 \newpage
 
@@ -567,12 +567,12 @@ Therefore, for all $x\in \mathcal{B}_{\eta}$, we have
 (ii) Prove that if $\rho(A)<1$, then the dynamical system $x_{t+1}=f(x_t)$ is locally exponentially stable.
 \\
 \begin{proof}
-We have $A=Jf(0)$. Hence $A\in \R^{n\times n}$ has exactly $n$ (complex) eigenvalues, $\lambda_1,\ldots,\lambda_n$. The \textit{spectral radius} of $A$
-is defined as
-\begin{equation}
-    \rho(A)=\max\{\left\lvert \lambda_1\right\rvert, \left\lvert \lambda_2\right\rvert,\ldots, \left\lvert \lambda_n\right\rvert \}.
-\end{equation}
-Specifically, we define $V: V(x)=x^{\tran}Px, x\in\R^n, P\in\Spp^n$.
+We have $A=Jf(0)$. 
+% Hence $A\in \R^{n\times n}$ has exactly $n$ (complex) eigenvalues, $\lambda_1,\ldots,\lambda_n$. The \textit{spectral radius} of $A$
+% is defined as
+% \begin{equation}
+%     \rho(A)=\max\{\left\lvert \lambda_1\right\rvert, \left\lvert \lambda_2\right\rvert,\ldots, \left\lvert \lambda_n\right\rvert \}.
+% \end{equation}
 \\
 From \emph{Lyapunov exponential stability theorem}, we have
 \begin{equation}
@@ -587,14 +587,22 @@ where $X\rightarrow [0,\infty)$ and $\lambda,c>0$, for all $x\in X$. If addition
     V(x)\leq\overline{c}\left\lVert x\right\rVert^{\lambda}, \forall x\in X\cap\mathcal{B}_r,\tag{LUB}&
     \label{eq:LUB}
 \end{align}
+Specifically, we define $V: V(x)=x^{\tran}Px, x\in\R^n, P\in\Spp^n, \lambda=2$, we have
 \begin{equation}
-    V(f(x))-V(x)\leq-c\left\lVert x\right\rVert^{2},
+    V(f(0))-V(0)\leq-\beta\left\lVert 0\right\rVert^{2},
 \end{equation}
-The candidate function, $V(x)=x^{\tran}Px$ satisfies \eqref{eq:LDC}, $V(f(x))-V(x)\leq-\alpha(\left\lVert x\right\rVert)$ if
+We know that $\rho(A)<1$, we can get
+\begin{align}
+    \tfrac{\underline{\beta}}{2}\left\lVert x\right\rVert^{2}\leq x^{\tran}Px, \forall x\in \mathcal{B}_{\eta},&
+    \\
+    x^{\tran}Px\leq\tfrac{\overline{\beta}}{2}\left\lVert x\right\rVert^{2}, \forall x\in\mathcal{B}_{\eta},&
+\end{align}
+The candidate function, $V(x)=x^{\tran}Px$ satisfies \eqref{eq:LDC}, $V(f(x_t))-V(x_t)\leq-\alpha(\left\lVert x_t\right\rVert)$ if
 \begin{equation}
-    \underbracket[0.5pt]{x^{\tran}A^{\tran}PAx}_{V(Ax)}-\underbracket[0.5pt]{x^{\tran}Px}_{V(x)}\leq-\alpha(\left\lVert x\right\rVert),
+    \underbracket[0.5pt]{x_{t+1}^{\tran}Px_{t+1}}_{V(f(x_t))}-\underbracket[0.5pt]{x_t^{\tran}Px_t}_{V(x_t)}\leq-\alpha(\left\lVert x_t\right\rVert),
 \end{equation}
-for all $x\in\R^n$. Equivalently,
+for all $x\in\R^n$.
+Equivalently,
 \begin{equation}
     x^{\tran}(A^{\tran}PA-P)x\leq-\alpha(\left\lVert x\right\rVert), \tag{LDC$_{\mathrm{lin}}$}
     \label{eq:LDC_lin}
@@ -608,21 +616,20 @@ for all $x\in\R^n$. This holds if
 \begin{equation}
     A^{\tran}PA-P=-Q.
 \end{equation}
-\\
-We have
-\begin{equation}
-    x_{t+1}=Ax_t+h(x_t),
-\end{equation}
-where $A=Jf(0)$ and $h$ is such that $\left\lVert h(x)\right\rVert \leq \tfrac{L}{2}\left\lVert x\right\rVert ^2$. The dynamical system
-\begin{equation}
-    x_{t+1}=Ax_t,
-\end{equation}
-is called the linearisation of $x_{t+1}=f(x_t)$ at 0.
-\begin{align}
-    \frac{\partial V(f(x_t))}{\partial t}&=2f(x_t)Jf(x_t)
-    \notag\\
-    &=2x_{t+1}Jf(x_t)
-\end{align}
+% We have
+% \begin{equation}
+%     x_{t+1}=Ax_t+h(x_t),
+% \end{equation}
+% where $A=Jf(0)$ and $h$ is such that $\left\lVert h(x)\right\rVert \leq \tfrac{L}{2}\left\lVert x\right\rVert ^2$. The dynamical system
+% \begin{equation}
+%     x_{t+1}=Ax_t,
+% \end{equation}
+% is called the linearisation of $x_{t+1}=f(x_t)$ at 0.
+% \begin{align}
+%     \frac{\partial V(f(x_t))}{\partial t}&=2f(x_t)Jf(x_t)
+%     \notag\\
+%     &=2x_{t+1}Jf(x_t)
+% \end{align}
 \end{proof}
 (iii) Prove or disprove (by providing a counterexample) that if $\rho(A)=1$, the system $x_{t+1}=f(x_t)$ is asymptotically stable.
 \\ \\
@@ -705,12 +712,395 @@ MPC controller:
     \end{align}
 \end{subequations}
 The set of feasible states is shown in Figure \ref{fig:q3_i_Xx} below.
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.45\linewidth]{figures/q3_i_X.pdf}
-    % \quad
-    \includegraphics[width=0.45\linewidth]{figures/q3_i_X_x.pdf}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            every axis y label/.style={
+at={(ticklabel cs:0.5)},rotate=90,anchor=center,
+},
+            axis x line*=bottom,
+            axis y line*=left,
+            xlabel=$x_1$,
+            ylabel=$x_2$,
+            xmin=-2.2, xmax=2.2,
+            ymin=-2.2, ymax=2.2,
+            xtick distance=1,
+            ytick distance=1,
+            grid=both,
+            width=6cm,
+            height=6cm,
+            legend style={area legend,legend pos=outer north east,font=\tiny,legend cell align=left},
+            ]
+            \addplot [pink,fill=pink]      % X_10
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (-1.6,     -2)
+                (2,      -2)
+                (2,       1.42857)
+                (1.6,      2)
+                (-2,       2)
+                (-2,      -1.42857)
+                (-1.6,     -2)
+            };
+            \definecolor{tan}{rgb}{0.82, 0.71, 0.55}
+            \addplot [dashed,line width=1.5pt,color=tan]      % X_6
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-1.96679 ,-1.47601)
+            (-0.9217 , -2. )    
+            ( 2.  ,    -2. )    
+             (2.   ,    1.42857)
+            ( 1.96679 , 1.47601)
+             (0.9217 ,  2.   )  
+           ( -2.   ,    2.   )  
+            (-2.  ,    -1.42857)
+            (-1.96679 ,-1.47601)
+            };
+            \addplot [dashed,line width=1.5pt,color=mediumseagreen]      % X_5
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.91196 ,-1.78749)
+            (-0.48811 ,-2.  )   
+           (  1.2988 , -2.  )   
+            ( 2.   ,   -1.35274)
+            ( 2.   ,    0.77933)
+           (  0.91196,  1.78749)
+            ( 0.48811 , 2.     )
+           ( -1.2988  , 2.     )
+           ( -2.   ,    1.35274)
+           ( -2.   ,   -0.77933)
+           (-0.91196 ,-1.78749)
+            };
+            \definecolor{napiergreen}{rgb}{0.16, 0.5, 0.0}
+            \addplot [dashed,line width=1.5pt,color=napiergreen]      % X_4
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-1.1632 , -1.19629)
+            (-0.29581 ,-2.  )   
+             (0.15857 ,-2.   )  
+             (1.1459 , -1.08861)
+             (1.54768,  0.07306)
+             (1.1632  , 1.19629)
+            ( 0.29581 , 2.)     
+            (-0.15856 , 2.    ) 
+            (-1.1459 ,  1.08861)
+           ( -1.54768 ,-0.07307)
+           (-1.1632 , -1.19629)
+            };
+            \definecolor{mediumorchid}{rgb}{0.73, 0.33, 0.83}
+            \addplot [dashed,line width=1.5pt,color=mediumorchid]      % X_3
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.61613, -1.7032 )
+           ( -0.61613 ,-1.7032 )
+           ( -0.61612 ,-1.70319)
+          (   0.59882 ,-0.58171)
+        (     1.00061 , 0.57997)
+          (   0.61613 , 1.7032 )
+            ( 0.61613 , 1.7032 )
+            ( 0.61613 , 1.7032 )
+          (  -0.59883  ,0.5817 )
+            (-1.00061 ,-0.57997)
+            (-0.61613, -1.7032 )
+            };
+            \definecolor{tomato}{rgb}{1.0, 0.39, 0.28}
+            \addplot [dashed,line width=1.5pt,color=tomato]      % X_2
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.80837 ,-1.14159)
+            (-0.80837 ,-1.14159)
+            ( 0.40659 ,-0.02009)
+            ( 0.80837 , 1.14158)
+            ( 0.80837 , 1.14159)
+           (  0.80837 , 1.14159)
+            (-0.40659 , 0.02009)
+           ( -0.80837 ,-1.14158)
+           (-0.80837 ,-1.14159)
+            };
+            \addplot [line legend,line width=1.5pt,color=orange]      % X_1
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.60748 ,-0.56075)
+           ( -0.60748 ,-0.56075)
+           (  0.60748 , 0.56075)
+            ( 0.60748 , 0.56075)
+            ( 0.60748 , 0.56075)
+           ( -0.60748 ,-0.56075)
+            };
+                \definecolor{mediumseagreen}{rgb}{0.24, 0.7, 0.44}
+            \addplot [line width=1.5pt,color=white]      % O_{\infty}
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0. ,-0.)
+             (0. ,-0.)
+             (0. , 0.)
+            ( 0. , 0.)
+            (-0. , 0.)
+            (-0., -0.)
+            };
+            \legend{$X_{10}$,$X_{6}$,$X_{5}$,$X_{4}$,$X_{3}$,$X_{2}$,$X_{1}$,$X_{0}(\{0\})$}
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    % \hspace{pt}
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            every axis y label/.style={
+at={(ticklabel cs:0.5)},rotate=90,anchor=center,
+},
+            axis x line*=bottom,
+            axis y line*=left,
+            xlabel=$x_1$,
+            ylabel=$x_2$,
+            xmin=-2.2, xmax=2.2,
+            ymin=-2.2, ymax=2.2,
+            xtick distance=1,
+            ytick distance=1,
+            grid=both,
+            width=6cm,
+            height=6cm,
+            legend style={area legend,legend pos=outer north east,font=\tiny,legend cell align=left},
+            ]
+            \addplot [pink,fill=pink]      % X_10
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (-1.6,     -2)
+                (2,      -2)
+                (2,       1.42857)
+                (1.6,      2)
+                (-2,       2)
+                (-2,      -1.42857)
+                (-1.6,     -2)
+            };
+            \definecolor{tan}{rgb}{0.82, 0.71, 0.55}
+            \addplot [dashed,line width=1.5pt,color=tan]      % X_6
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-1.96679 ,-1.47601)
+            (-0.9217 , -2. )    
+            ( 2.  ,    -2. )    
+             (2.   ,    1.42857)
+            ( 1.96679 , 1.47601)
+             (0.9217 ,  2.   )  
+           ( -2.   ,    2.   )  
+            (-2.  ,    -1.42857)
+            (-1.96679 ,-1.47601)
+            };
+            \addplot [dashed,line width=1.5pt,color=mediumseagreen]      % X_5
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.91196 ,-1.78749)
+            (-0.48811 ,-2.  )   
+           (  1.2988 , -2.  )   
+            ( 2.   ,   -1.35274)
+            ( 2.   ,    0.77933)
+           (  0.91196,  1.78749)
+            ( 0.48811 , 2.     )
+           ( -1.2988  , 2.     )
+           ( -2.   ,    1.35274)
+           ( -2.   ,   -0.77933)
+           (-0.91196 ,-1.78749)
+            };
+            \definecolor{napiergreen}{rgb}{0.16, 0.5, 0.0}
+            \addplot [dashed,line width=1.5pt,color=napiergreen]      % X_4
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-1.1632 , -1.19629)
+            (-0.29581 ,-2.  )   
+             (0.15857 ,-2.   )  
+             (1.1459 , -1.08861)
+             (1.54768,  0.07306)
+             (1.1632  , 1.19629)
+            ( 0.29581 , 2.)     
+            (-0.15856 , 2.    ) 
+            (-1.1459 ,  1.08861)
+           ( -1.54768 ,-0.07307)
+           (-1.1632 , -1.19629)
+            };
+            \definecolor{mediumorchid}{rgb}{0.73, 0.33, 0.83}
+            \addplot [dashed,line width=1.5pt,color=mediumorchid]      % X_3
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.61613, -1.7032 )
+           ( -0.61613 ,-1.7032 )
+           ( -0.61612 ,-1.70319)
+          (   0.59882 ,-0.58171)
+        (     1.00061 , 0.57997)
+          (   0.61613 , 1.7032 )
+            ( 0.61613 , 1.7032 )
+            ( 0.61613 , 1.7032 )
+          (  -0.59883  ,0.5817 )
+            (-1.00061 ,-0.57997)
+            (-0.61613, -1.7032 )
+            };
+            \definecolor{tomato}{rgb}{1.0, 0.39, 0.28}
+            \addplot [dashed,line width=1.5pt,color=tomato]      % X_2
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.80837 ,-1.14159)
+            (-0.80837 ,-1.14159)
+            ( 0.40659 ,-0.02009)
+            ( 0.80837 , 1.14158)
+            ( 0.80837 , 1.14159)
+           (  0.80837 , 1.14159)
+            (-0.40659 , 0.02009)
+           ( -0.80837 ,-1.14158)
+           (-0.80837 ,-1.14159)
+            };
+            \addplot [line legend,line width=1.5pt,color=orange]      % X_1
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0.60748 ,-0.56075)
+           ( -0.60748 ,-0.56075)
+           (  0.60748 , 0.56075)
+            ( 0.60748 , 0.56075)
+            ( 0.60748 , 0.56075)
+           ( -0.60748 ,-0.56075)
+            };
+                \definecolor{mediumseagreen}{rgb}{0.24, 0.7, 0.44}
+            \addplot [line width=1.5pt,color=white]      % O_{\infty}
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+            (-0. ,-0.)
+             (0. ,-0.)
+             (0. , 0.)
+            ( 0. , 0.)
+            (-0. , 0.)
+            (-0., -0.)
+            };
+            \definecolor{dodgerblue}{rgb}{0.12, 0.56, 1.0}
+            \addplot [line width=0.8pt,color=dodgerblue,mark=o,line legend]      % MPC
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {
+                (2.000000, -2.000000)
+                (1.000000, -2.000000)
+                (0.398187, -1.700907)
+                (0.137372, -1.275815)
+                (0.031260, -0.896073)
+                (-0.007071, -0.604739)
+                (-0.017307, -0.397491)
+                (-0.017009, -0.256490)
+                (-0.013575, -0.163301)
+                (-0.009865, -0.102933)
+                (-0.006800, -0.064387)
+                (-0.004534, -0.040039)
+                (-0.002955, -0.024782)
+                (-0.001895, -0.015283)
+                (-0.001201, -0.009397)
+                (-0.000754, -0.005765)
+                (-0.000470, -0.003530)
+                (-0.000292, -0.002158)
+                (-0.000180, -0.001318)
+                (-0.000111, -0.000804)
+                (-0.000068, -0.000490)
+                (-0.000042, -0.000299)
+                (-0.000026, -0.000182)
+                (-0.000016, -0.000111)
+                (-0.000009, -0.000067)
+                (-0.000006, -0.000041)
+                (-0.000003, -0.000025)
+                (-0.000002, -0.000015)
+                (-0.000001, -0.000009)
+                (-0.000001, -0.000006)
+                (-0.000000, -0.000003)
+                (-0.000000, -0.000002)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)          
+            };
+            \addplot [line width=0.8pt,color=dodgerblue,mark=o]      % MPC
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {
+                (1.600000, 2.000000)
+                (2.000000, 1.340000)
+                (1.938000, 0.640000)
+                (1.386000, -0.053800)
+                (0.615531, -0.558804)
+                (0.260837, -0.602123)
+                (0.101978, -0.496893)
+                (0.033747, -0.367294)
+                (0.006417, -0.255780)
+                (-0.003134, -0.171674)
+                (-0.005414, -0.112415)
+                (-0.005042, -0.072342)
+                (-0.003937, -0.045966)
+                (-0.002829, -0.028930)
+                (-0.001936, -0.018075)
+                (-0.001285, -0.011230)
+                (-0.000835, -0.006946)
+                (-0.000534, -0.004281)
+                (-0.000338, -0.002631)
+                (-0.000212, -0.001613)
+                (-0.000132, -0.000988)
+                (-0.000082, -0.000604)
+                (-0.000051, -0.000369)
+                (-0.000031, -0.000225)
+                (-0.000019, -0.000137)
+                (-0.000012, -0.000083)
+                (-0.000007, -0.000051)
+                (-0.000004, -0.000031)
+                (-0.000002, -0.000019)
+                (-0.000001, -0.000011)
+                (-0.000001, -0.000007)
+                (-0.000000, -0.000004)
+                (-0.000000, -0.000003)
+                (-0.000000, -0.000002)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000000)
+            };
+            \addplot [line width=0.8pt,color=dodgerblue,mark=o]      % MPC
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {
+                (-2.000000, 2.000000)
+                (-1.000000, 2.000000)
+                (-0.398187, 1.700907)
+                (-0.137372, 1.275815)
+                (-0.031260, 0.896073)
+                (0.007071, 0.604739)
+                (0.017307, 0.397491)
+                (0.017009, 0.256490)
+                (0.013575, 0.163301)
+                (0.009865, 0.102933)
+                (0.006800, 0.064387)
+                (0.004534, 0.040039)
+                (0.002955, 0.024782)
+                (0.001895, 0.015283)
+                (0.001201, 0.009397)
+                (0.000754, 0.005765)
+                (0.000470, 0.003530)
+                (0.000292, 0.002158)
+                (0.000180, 0.001318)
+                (0.000111, 0.000804)
+                (0.000068, 0.000490)
+                (0.000042, 0.000299)
+                (0.000026, 0.000182)
+                (0.000016, 0.000111)
+                (0.000009, 0.000067)
+                (0.000006, 0.000041)
+                (0.000003, 0.000025)
+                (0.000002, 0.000015)
+                (0.000001, 0.000009)
+                (0.000001, 0.000006)
+                (0.000000, 0.000003)
+                (0.000000, 0.000002)
+                (0.000000, 0.000001)
+                (0.000000, 0.000001)
+                (0.000000, 0.000001)
+                (0.000000, 0.000000)
+            };
+            % \legend{$X_{10}$,$X_{2}$,$X_{1}$,$O_{\infty}$,MPC}
+            \legend{$X_{10}$,$X_{6}$,$X_{5}$,$X_{4}$,$X_{3}$,$X_{2}$,$X_{1}$,$X_{0}(\{0\})$,MPC}
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{We denote by $X_t(X_f)$ the set of states that can be steered in no more than $t$
     steps to $X_f$. Observe that $Xt(\{0\})\subseteq Xt'(\{0\})$ for $t < t'$. In
     other words, the larger the terminal set or the larger the prediction horizon is, the larger
@@ -1066,11 +1456,285 @@ MPC controller:
     \end{align}
 \end{subequations}
 The set of feasible states is shown in Figure \ref{fig:q3_ii_Xx} below.
-\begin{figure}[H]
-    \centering
-    \vspace{-0.35cm}
-    \includegraphics[width=0.45\linewidth]{figures/q3_ii_X.pdf}
-    \includegraphics[width=0.45\linewidth]{figures/q3_ii_X_x.pdf}
+% \begin{figure}[H]
+%     \centering
+%     \vspace{-0.35cm}
+%     \includegraphics[width=0.45\linewidth]{figures/q3_ii_X.pdf}
+%     \includegraphics[width=0.45\linewidth]{figures/q3_ii_X_x.pdf}
+    % \caption{We denote by $X_t(X_f)$ the set of states that can be steered in no more than $t$
+    % steps to $X_f$. Observe that $Xt(O_{\infty})\subseteq Xt'(O_{\infty})$ for $t < t'$. In
+    % other words, the larger the terminal set or the larger the prediction horizon is, the larger
+    % the set of feasible states will be. In the right plot we see three trajectories of the
+    % MPC-controlled system with $N = 10$, starting from three extreme points of $X_{10}(O_\infty)$. The extreme points are $\begin{bsmallmatrix}-2\\2\end{bsmallmatrix}, \begin{bsmallmatrix}1.6\\2\end{bsmallmatrix}, \begin{bsmallmatrix}2\\-2\end{bsmallmatrix}$. The set
+    % $O_{\infty}$ is shown in all plots with green colour.
+    % \label{fig:q3_ii_Xx}}
+% \end{figure}
+\begin{figure}[H] %插入图片
+    \raggedright
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            axis x line*=bottom,
+            axis y line*=left,
+            xlabel=$x_1$,
+            ylabel=$x_2$,
+            xmin=-2.2, xmax=2.2,
+            ymin=-2.2, ymax=2.2,
+            xtick distance=1,
+            ytick distance=1,
+            grid=both,
+            width=6.5cm,
+            height=6.5cm,
+            legend style={area legend,legend pos=outer north east},
+            ]
+            \addplot [pink,fill=pink]      % X_10
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (-1.6,     -2)
+                (2,      -2)
+                (2,       1.42857)
+                (1.6,      2)
+                (-2,       2)
+                (-2,      -1.42857)
+                (-1.6,     -2)
+            };
+            \addplot [dashed,line width=1.5pt,color=black]      % X_2
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (-1.91378,-1.55174)
+                (-0.26359, -2 )    
+                (2,      -2)     
+                (2,       1.42857)
+                (1.91378,  1.55174)
+                (0.26359,  2  )   
+                (-2,       2   )  
+                (-2,      -1.42857)
+                (-1.91378,-1.55174)
+            };
+            \addplot [dashed,line width=1.5pt,color=orange]      % X_1
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0.48342, -2    ) 
+                (2,      -2   )  
+                (2,       0.86036)
+                (-0.48342,  2)     
+                (-2,       2)     
+                (-2,      -0.86036)
+                (0.48342, -2    )
+            };
+                \definecolor{mediumseagreen}{rgb}{0.24, 0.7, 0.44}
+            \addplot [line width=1.5pt,color=mediumseagreen]      % O_{\infty}
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0.63195 ,-2   )  
+                (1.78679 ,-2  )   
+                (2    ,  -1.8782 )
+                (2  ,    -0.16714)
+                (-0.63195 , 2  )   
+                (-1.78679 , 2 )    
+                (-2     ,  1.8782 )
+                (-2    ,   0.16714)
+                (0.63195 ,-2   )
+            };
+            \legend{$X_{10}$,$X_{2}$,$X_{1}$,$O_{\infty}$}
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    \hspace{-25pt}
+    \begin{tikzpicture}                 % 绘图开始
+        \begin{axis}[                   % 添加坐标
+            axis x line*=bottom,
+            axis y line*=left,
+            xlabel=$x_1$,
+            ylabel=$x_2$,
+            xmin=-2.2, xmax=2.2,
+            ymin=-2.2, ymax=2.2,
+            xtick distance=1,
+            ytick distance=1,
+            grid=both,
+            width=6.5cm,
+            height=6.5cm,
+            area legend,
+            legend style={legend pos=outer north east},
+            ]
+            \addplot [pink,fill=pink]      % X_10
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (-1.6,     -2)
+                (2,      -2)
+                (2,       1.42857)
+                (1.6,      2)
+                (-2,       2)
+                (-2,      -1.42857)
+                (-1.6,     -2)
+            };
+            \addplot [dashed,line width=1.5pt,color=black]      % X_2
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (-1.91378,-1.55174)
+                (-0.26359, -2 )    
+                (2,      -2)     
+                (2,       1.42857)
+                (1.91378,  1.55174)
+                (0.26359,  2  )   
+                (-2,       2   )  
+                (-2,      -1.42857)
+                (-1.91378,-1.55174)
+            };
+            \addplot [dashed,line width=1.5pt,color=orange]      % X_1
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0.48342, -2    ) 
+                (2,      -2   )  
+                (2,       0.86036)
+                (-0.48342,  2)     
+                (-2,       2)     
+                (-2,      -0.86036)
+                (0.48342, -2    )
+            };
+                \definecolor{mediumseagreen}{rgb}{0.24, 0.7, 0.44}
+            \addplot [line width=1.5pt,color=mediumseagreen]      % O_{\infty}
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {                                   % 输入数据
+                (0.63195 ,-2   )  
+                (1.78679 ,-2  )   
+                (2    ,  -1.8782 )
+                (2  ,    -0.16714)
+                (-0.63195 , 2  )   
+                (-1.78679 , 2 )    
+                (-2     ,  1.8782 )
+                (-2    ,   0.16714)
+                (0.63195 ,-2   )
+            };	\definecolor{dodgerblue}{rgb}{0.12, 0.56, 1.0}
+            \addplot [line width=0.8pt,color=dodgerblue,mark=o,line legend]      % MPC
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {
+                (2.000000, -2.000000)
+                (1.000000, -2.000000)
+                (0.398187, -1.700907)
+                (0.137372, -1.275815)
+                (0.031260, -0.896073)
+                (-0.007071, -0.604739)
+                (-0.017307, -0.397491)
+                (-0.017009, -0.256490)
+                (-0.013575, -0.163301)
+                (-0.009865, -0.102933)
+                (-0.006800, -0.064387)
+                (-0.004534, -0.040039)
+                (-0.002955, -0.024782)
+                (-0.001895, -0.015283)
+                (-0.001201, -0.009397)
+                (-0.000754, -0.005765)
+                (-0.000470, -0.003530)
+                (-0.000292, -0.002158)
+                (-0.000180, -0.001318)
+                (-0.000111, -0.000804)
+                (-0.000068, -0.000490)
+                (-0.000042, -0.000299)
+                (-0.000026, -0.000182)
+                (-0.000016, -0.000111)
+                (-0.000009, -0.000067)
+                (-0.000006, -0.000041)
+                (-0.000003, -0.000025)
+                (-0.000002, -0.000015)
+                (-0.000001, -0.000009)
+                (-0.000001, -0.000006)
+                (-0.000000, -0.000003)
+                (-0.000000, -0.000002)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)
+                (-0.000000, -0.000000)          
+            };
+            \addplot [line width=0.8pt,color=dodgerblue,mark=o]      % MPC
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {
+                (1.600000, 2.000000)
+                (2.000000, 1.340000)
+                (1.938000, 0.640000)
+                (1.386000, -0.053800)
+                (0.615531, -0.558804)
+                (0.260837, -0.602123)
+                (0.101978, -0.496893)
+                (0.033747, -0.367294)
+                (0.006417, -0.255780)
+                (-0.003134, -0.171674)
+                (-0.005414, -0.112415)
+                (-0.005042, -0.072342)
+                (-0.003937, -0.045966)
+                (-0.002829, -0.028930)
+                (-0.001936, -0.018075)
+                (-0.001285, -0.011230)
+                (-0.000835, -0.006946)
+                (-0.000534, -0.004281)
+                (-0.000338, -0.002631)
+                (-0.000212, -0.001613)
+                (-0.000132, -0.000988)
+                (-0.000082, -0.000604)
+                (-0.000051, -0.000369)
+                (-0.000031, -0.000225)
+                (-0.000019, -0.000137)
+                (-0.000012, -0.000083)
+                (-0.000007, -0.000051)
+                (-0.000004, -0.000031)
+                (-0.000002, -0.000019)
+                (-0.000001, -0.000011)
+                (-0.000001, -0.000007)
+                (-0.000000, -0.000004)
+                (-0.000000, -0.000003)
+                (-0.000000, -0.000002)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000001)
+                (-0.000000, -0.000000)
+            };
+            \addplot [line width=0.8pt,color=dodgerblue,mark=o]      % MPC
+            coordinates                         % 声明是在迪卡尔坐标系中的数据
+            {
+                (-2.000000, 2.000000)
+                (-1.000000, 2.000000)
+                (-0.398187, 1.700907)
+                (-0.137372, 1.275815)
+                (-0.031260, 0.896073)
+                (0.007071, 0.604739)
+                (0.017307, 0.397491)
+                (0.017009, 0.256490)
+                (0.013575, 0.163301)
+                (0.009865, 0.102933)
+                (0.006800, 0.064387)
+                (0.004534, 0.040039)
+                (0.002955, 0.024782)
+                (0.001895, 0.015283)
+                (0.001201, 0.009397)
+                (0.000754, 0.005765)
+                (0.000470, 0.003530)
+                (0.000292, 0.002158)
+                (0.000180, 0.001318)
+                (0.000111, 0.000804)
+                (0.000068, 0.000490)
+                (0.000042, 0.000299)
+                (0.000026, 0.000182)
+                (0.000016, 0.000111)
+                (0.000009, 0.000067)
+                (0.000006, 0.000041)
+                (0.000003, 0.000025)
+                (0.000002, 0.000015)
+                (0.000001, 0.000009)
+                (0.000001, 0.000006)
+                (0.000000, 0.000003)
+                (0.000000, 0.000002)
+                (0.000000, 0.000001)
+                (0.000000, 0.000001)
+                (0.000000, 0.000001)
+                (0.000000, 0.000000)
+            };
+            \legend{$X_{10}$,$X_{2}$,$X_{1}$,$O_{\infty}$,MPC}
+        \end{axis}                         % 结束坐标
+    \end{tikzpicture}                      % 绘图结束
+    \captionsetup{justification   = raggedright,
+              singlelinecheck = false}
     \caption{We denote by $X_t(X_f)$ the set of states that can be steered in no more than $t$
     steps to $X_f$. Observe that $Xt(O_{\infty})\subseteq Xt'(O_{\infty})$ for $t < t'$. In
     other words, the larger the terminal set or the larger the prediction horizon is, the larger
