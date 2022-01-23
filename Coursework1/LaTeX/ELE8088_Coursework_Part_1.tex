@@ -101,7 +101,7 @@
 \address[Zichi Zhang and Shihao Chen]{Email addresses: \href{mailto:zzhang54@qub.ac.uk}%
 {zzhang54@qub.ac.uk} and 
 \href{mailto:schen45.ac.uk}{schen45@qub.ac.uk}.}
-\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.6. Last updated:~\today.}
+\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.7. Last updated:~\today.}
 
 
 
@@ -144,8 +144,8 @@
 \\ \\
 (i) Prove that the function $g:\R^n\to \R$ given by $g(x) = \frac{1}{2}x^{\tran}Qx+q^{\tran}x+c$ with $Q\in \mathbb{S}^n_+$ is level-bounded
 if and only if $Q\in \mathbb{S}^n_{++}$.
-\\ \\
-\textbf{Proof:}
+\\ 
+\begin{proof}
 \begin{align}
     \mathrm{lev}_{\leq \alpha}f&=\{x\in\R^n:f(x)\leq\alpha\}\notag\\
     &=\{x\in\R^n:x^{\tran}Qx\leq\alpha\}
@@ -169,6 +169,8 @@ Thus, if $M\geq 0$ exists, then
 \end{align}
 Conclusion: the function $g:\R^n\to \R$ given by $g(x) = \frac{1}{2}x^{\tran}Qx+q^{\tran}x+c$ with $Q\in \mathbb{S}^n_+$ is level-bounded
 if and only if $Q\in \mathbb{S}^n_{++}$.
+\end{proof}
+\
 \\ \\
 Next, consider the finite-horizon linear-quadratic optimal control problem
 \begin{subequations}
