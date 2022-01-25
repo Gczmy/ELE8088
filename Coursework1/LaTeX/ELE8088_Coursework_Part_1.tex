@@ -101,7 +101,7 @@
 \address[Zichi Zhang and Shihao Chen]{Email addresses: \href{mailto:zzhang54@qub.ac.uk}%
 {zzhang54@qub.ac.uk} and 
 \href{mailto:schen45.ac.uk}{schen45@qub.ac.uk}.}
-\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.7. Last updated:~\today.}
+\thanks{Thanks Dr. Pantelis Sopasakis. Version 1.1.9. Last updated:~\today.}
 
 
 
@@ -146,26 +146,55 @@
 if and only if $Q\in \mathbb{S}^n_{++}$.
 \\ 
 \begin{proof}
+    At first, we assume that $q^{\tran}=0$ and $c=0$. Then we have $g(x)=\tfrac{1}{2}x^{\tran}Qx$.
+% \begin{align}
+%     \mathrm{lev}_{\leq \alpha}g&=\{x\in\R^n:g(x)\leq\alpha\}
+%     \\
+%     &=\{x\in\R^n:\tfrac{1}{2}x^{\tran}Qx+q^{\tran}x+c\leq\alpha\}
+% \end{align}
 \begin{align}
-    \mathrm{lev}_{\leq \alpha}f&=\{x\in\R^n:f(x)\leq\alpha\}\notag\\
+    \mathrm{lev}_{\leq \alpha}g&=\{x\in\R^n:g(x)\leq\alpha\}
+    \\
     &=\{x\in\R^n:x^{\tran}Qx\leq\alpha\}
 \end{align}
 We are trying to prove that $\mathrm{lev}_{\leq \alpha}f$ are bounded, i.e., there is an $M\geq 0$ such that
+% \begin{equation}
+%     \{x\in\R^n:\tfrac{1}{2}x^{\tran}Qx+q^{\tran}x+c\leq\alpha\}\subseteq \mathcal{B}_M
+% \end{equation}
 \begin{equation}
-    \{x\in\R^n:x^{\tran}Qx\leq\alpha\}\subseteq \mathcal{B}_M
+    \{x\in\R^n:\tfrac{1}{2}x^{\tran}Qx\leq\alpha\}\subseteq \mathcal{B}_M
 \end{equation}
 \begin{equation}
-    \lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq x^{\tran}Qx\leq \lambda_{\mathrm{max}}(Q)\left\lVert x\right\rVert ^2
+    \lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \tfrac{1}{2}x^{\tran}Qx\leq \lambda_{\mathrm{max}}(Q)\left\lVert x\right\rVert ^2
 \end{equation}
 \begin{align}
     \Longrightarrow &\lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \alpha\\
-    \Longrightarrow &\left\lVert x\right\rVert \leq \sqrt{\frac{\alpha}{\lambda_{\mathrm{min}}(Q)}}:=M
+    \Longrightarrow &\left\lVert x\right\rVert \leq \sqrt{\frac{\alpha}{\lambda_{\mathrm{min}}(Q)}}=:M
 \end{align}
-Thus, if $M\geq 0$ exists, then
+
+% \begin{equation}
+%     \{x\in\R^n:x^{\tran}Qx\leq\alpha\}\subseteq \mathcal{B}_M
+% \end{equation}
+% \begin{equation}
+%     \lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq x^{\tran}Qx\leq \lambda_{\mathrm{max}}(Q)\left\lVert x\right\rVert ^2
+% \end{equation}
+% \begin{align}
+%     \Longrightarrow &\lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \alpha\\
+%     \Longrightarrow &\left\lVert x\right\rVert \leq \sqrt{\frac{\alpha}{\lambda_{\mathrm{min}}(Q)}}:=M
+% \end{align}
+Thus, if $M\geq 0$ exists, then $\alpha\geq 0$, then
 \begin{align}
-    &\lambda_{\mathrm{min}}(Q)\geq 0\\
+    \lambda_{\mathrm{min}}(Q)\geq 0,\ &\lambda_{\mathrm{min}}(Q)\leq\lambda(Q)\leq\lambda_{\mathrm{max}}(Q)\\
     \Longrightarrow&\lambda(Q)\geq 0\\
     \Longrightarrow &Q\in \mathbb{S}^n_{++}
+\end{align}
+We know that
+\begin{align}
+    x^{\tran}Qx-2b^{\tran}x=(x-Q^{-1}b)^{\tran}Q(x-Q^{-1}b)-b^{\tran}Q^{-1}b.
+\end{align}
+Then we have
+\begin{align}
+    \tfrac{1}{2}x^{\tran}Qx+q^{\tran}x+c=\tfrac{1}{2}\left( (x+Q^{-1}q)^{\tran}Q(x+Q^{-1}q)-q^{\tran}Q^{-1}q \right)+c .
 \end{align}
 Conclusion: the function $g:\R^n\to \R$ given by $g(x) = \frac{1}{2}x^{\tran}Qx+q^{\tran}x+c$ with $Q\in \mathbb{S}^n_+$ is level-bounded
 if and only if $Q\in \mathbb{S}^n_{++}$.
@@ -201,17 +230,306 @@ where $\begin{bsmallmatrix}Q&S\\S^{\tran}&R\end{bsmallmatrix}\succcurlyeq 0, Q\i
 \\ \\
 (ii) Is Problem $\mathbb{P}_N$ convex? Does $\mathbb{P}_N$ have a minimiser?
 \\ \\
-\textbf{Answer:} Problem $\mathbb{P}_N$ is convex. Problem $\mathbb{P}_N$ has a minimiser.
+\textbf{Answer:}
+% We can expand the problem $\mathbb{P}_N$:
+% \begin{align}
+%     \minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+%     & \sum_{t=0}^{N-1}\textstyle\frac{1}{2}
+%          \begin{bmatrix}
+%              x_t\\
+%              u_t
+%          \end{bmatrix}^{\tran}
+%          \begin{bmatrix}
+%              Q&S\\
+%              S^{\tran}&R
+%          \end{bmatrix}
+%          \begin{bmatrix}
+%              x_t\\
+%              u_t
+%          \end{bmatrix}
+%          +\frac{1}{2}x_N^{\tran}P_fx_N,
+%     \\
+%     =\minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+%     &\sum_{t=0}^{N-1}\textstyle\frac{1}{2}
+%     (x_t^{\tran}Qx_t+u_t^{\tran}Ru_t+x_t^{\tran}Su_t+u_t^{\tran}S^{\tran}x_t
+%     +x_N^{\tran}P_fx_N),
+% \end{align}
+From \textit{Theorem (Second-order differentiability and convexity)}
+\begin{align}
+    &Let\ f : \R^n\rightarrow\R\ be\ \mathcal{C}^2.\ Then\ f\ is\ convex\ if\ and\ only\ if
+    \notag
+    \\
+    &\qquad\qquad\qquad\qquad\qquad \nabla ^2f(x)\succeq   0,
+    \\
+    &for\ all\ x \in\R^n.
+    \notag
+\end{align}
+Thus, we have
+\begin{equation}
+    \nabla ^2(\mathbb{P}_N)=
+    \begin{bmatrix}
+        Q&S\\
+        S^{\tran}&R
+    \end{bmatrix}
+\end{equation}
+It is convex iff $\begin{bsmallmatrix}Q&S\\S^{\tran}&R\end{bsmallmatrix}\succeq 0$.
+\\
+And we know that $\begin{bsmallmatrix}Q&S\\S^{\tran}&R\end{bsmallmatrix}\succcurlyeq 0, Q\in \mathbb{S}^n_+, R\in \mathbb{S}^m_{++}, P_f\in \mathbb{S}^n_{+}$. So the function in problem $\mathbb{P}_N$ is convex. 
+\\
+And $\mathbb{P}_N$ is an optimization problem in which the objective function is a convex function and the feasible set is a convex set $\R^n$.
+Also the constraints $x_{t+1}=Ax_t+Bu_t,\ x_0=x$ are convex.
+\\
+\textbf{So problem $\mathbb{P}_N$ is convex.}
+\\ \\
+From \textit{Proposition (Minimisers of $\mathcal{C}^1$ convex functions)}
+\begin{align}
+    &Let\ f : \R^n\rightarrow\R\ be\ a\ convex\ and\ \mathcal{C}^1\ function.\ Then
+    \notag
+    \\
+    &the\ set\ of\ stationary\ points\ of\ f\ is\ equal\ to\ \argmin f.
+    \notag
+    \\
+    &In\ other\ words,\ a\ point\ x^{\star}\in\R^n\ is\ a\ minimiser\ of\ f\ 
+    \notag
+    \\
+    &if\ and\ only\ if\ it\ is\ a\ stationary\ point.
+    \notag
+\end{align}
+We know that $\mathbb{P}_N$ is convex, therefore all stationary
+points of $\mathbb{P}_N$ are minimisers of the problem \textit{(Proposition (Minimisers of $\mathcal{C}^1$ convex functions))}.
+\\
+It is 
+\begin{align}
+    &\quad \ \nabla (\mathbb{P}_N(x^{\star},u^{\star}))
+    \\
+    &=\nabla \left(
+        \minimise_{\substack{u^{\star}_0,u^{\star}_1,\ldots,u^{\star}_{N-1}\\ x^{\star}_0,x^{\star}_1,\ldots,x^{\star}_N}} \,
+        \sum_{t=0}^{N-1}\tfrac{1}{2}
+        \begin{bmatrix}
+            x_t\\
+            u_t
+        \end{bmatrix}^{\tran}
+        \begin{bmatrix}
+            Q&S\\
+            S^{\tran}&R
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_t\\
+            u_t
+        \end{bmatrix}
+        +\tfrac{1}{2}x_N^{\tran}P_fx_N\right) 
+    \\
+    &= 0
+    \\
+    &\Longleftrightarrow 
+    \minimise_{\substack{u^{\star}_0,u^{\star}_1,\ldots,u^{\star}_{N-1}\\ x^{\star}_0,x^{\star}_1,\ldots,x^{\star}_N}} \,
+    \sum_{t=0}^{N-1}
+    \begin{bmatrix}
+        Q&S\\
+        S^{\tran}&R
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_t\\
+        u_t
+    \end{bmatrix}
+    +P_fx_N
+    \label{eq:P_N_minimiser}
+\end{align}
+Any point $x^{\star},\ u^{\star}$ that satisfies the Equation \eqref{eq:P_N_minimiser} is a minimiser of $\mathbb{P}_N$.
+\\
+\textbf{So problem $\mathbb{P}_N$ has a minimiser.}
 \\ \\
 (iii) Solve Problem $\mathbb{P}_N$ by eliminating the state sequence: determine the optimal sequence of control actions, the optimal sequence(s) of states and the optimal cost.
 \\ \\
 \textbf{Solusion:}
+\begin{subequations}
+    \begin{align}
+        \mathbb{P}_N(x): \minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+         & \sum_{t=0}^{N-1}\textstyle\frac{1}{2}
+         \begin{bmatrix}
+             x_t\\
+             u_t
+         \end{bmatrix}^{\tran}
+         \begin{bmatrix}
+             Q&S\\
+             S^{\tran}&R
+         \end{bmatrix}
+         \begin{bmatrix}
+             x_t\\
+             u_t
+         \end{bmatrix}
+         +\frac{1}{2}x_N^{\tran}P_fx_N,
+        \\
+        \text{subject to: }\,
+         & x_{t+1} = A x_t + B u_t, \forall t\in\N_{[0, N-1]},
+        \\
+         & x_{0} = x,
+    \end{align}
+\end{subequations}
+where $\begin{bsmallmatrix}Q&S\\S^{\tran}&R\end{bsmallmatrix}\succcurlyeq 0, Q\in \mathbb{S}^n_+, R\in \mathbb{S}^m_{++}, P_f\in \mathbb{S}^n_{+}$, and $x$ is a given initial state.
+\\
+Given $x_{0} = x$, we have
+\begin{subequations}
+    \begin{align}
+        x_1&=Ax+Bu_0
+        \\
+        x_2&=Ax_1+Bu_1
+        \\
+        &=A^2x+ABu_0+Bu_1
+        \\
+        x_3&=Ax_2+Bu_2
+        \\
+        &=A^3x+A^2Bu_0+ABu_1+Bu_2
+        \\
+        &\ \, \vdots 
+        \\
+        x_t&=A^{t}x+A^{t-1}Bu_0+\ldots +Bu_{t-1}.
+    \end{align}
+\end{subequations}
+Let us define $\bm{x}_N = (x_1, x_2,\ldots, x_N)$ and $\bm{u}_N = (u_0,\ldots, u_{N-1})$; then,
+\begin{equation}
+    \bm{x}=\bar{A}x+\bar{B}\bm{u}_N,
+\end{equation}
+where
+\begin{equation}
+    \bar{A}=
+    \begin{bmatrix}
+        A
+        \\
+        A^2
+        \\
+        A^3
+        \\
+        \vdots
+        \\
+        A^N
+    \end{bmatrix},
+    \bar{B}=
+    \begin{bmatrix}
+        B
+        \\
+        AB&B
+        \\
+        A^2B&AB&B
+        \\
+        A^3B&A^2B&AB&B
+        \\
+        \vdots&\vdots&\vdots&&\ddots
+        % \\
+        % \vdots&\vdots&\vdots&&&B
+        \\
+        A^NB&A^{N-1}B&\cdots&&AB&B
+    \end{bmatrix}
+\end{equation}
+By defining
+\begin{equation}
+    \bar{Q}=\mathrm{blkdiag}(Q_1,Q_2,\ldots,Q_{N-1},P_f),\ \text{and}\ \bar{R}=\mathrm{blkdiag}(R_1,R_2,\ldots,R_{N-1}),
+\end{equation}
+and omitting the constant $\tfrac{1}{2}
+\begin{bsmallmatrix}
+    x_0\\
+    u_0
+\end{bsmallmatrix}^{\tran}
+\begin{bsmallmatrix}
+    \bar{Q}&S\\
+    S^{\tran}&\bar{R}
+\end{bsmallmatrix}
+\begin{bsmallmatrix}
+    x_0\\
+    u_0
+\end{bsmallmatrix}$ from the cost, $\mathbb{P}_N$ can be written equivalently as
+\begin{subequations}
+    \begin{align}
+        \mathbb{P}_N(x): \minimise_{\bm{u_N},\bm{x_N}} \,
+        & \tfrac{1}{2}
+        \begin{bmatrix}
+            \bm{x}_N\\
+            \bm{u}_N
+        \end{bmatrix}^{\tran}
+        \begin{bmatrix}
+            \bar{Q}&S\\
+            S^{\tran}&\bar{R}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \bm{x}_N\\
+            \bm{u}_N
+        \end{bmatrix},
+        \\
+        \text{subject to: }\,
+        & \bm{x}_{N} = \bar{A} x + \bar{B} \bm{u}_N,
+        \\
+        & x_{0} = x,
+    \end{align}
+\end{subequations}
+and substituting the constraints into the cost function we obtain the unconstrained problem:
+\begin{subequations}
+    \begin{align}
+        \mathbb{P}_N(x): \minimise_{\bm{u_N}} \,
+        & \tfrac{1}{2}
+        \begin{bmatrix}
+            \bar{A} x + \bar{B}\bm{u}_N\\
+            \bm{u}_N
+        \end{bmatrix}^{\tran}
+        \begin{bmatrix}
+            \bar{Q}&S\\
+            S^{\tran}&\bar{R}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \bar{A} x + \bar{B}\bm{u}_N\\
+            \bm{u}_N
+        \end{bmatrix},
+        \\
+        &=\tfrac{1}{2}\left((\bar{A}x + \bar{B}\bm{u}_N)^{\tran}\bar{Q}(\bar{A} x + \bar{B}\bm{u}_N)+\bm{u}_N^{\tran}\bar{R}\bm{u}_N\right.
+        \\
+        &\left.\quad+(\bar{A}x + \bar{B}\bm{u}_N)^{\tran}S\bm{u}_N+\bm{u}_N^{\tran}S^{\tran}(\bar{A} x + \bar{B}\bm{u}_N)\right) 
+        \\
+        &=\tfrac{1}{2}\left((\bar{A}x)^{\tran}\bar{Q}\bar{A}x+(\bar{A}x)^{\tran}\bar{Q}\bar{B}\bm{u}_N+(\bar{B}\bm{u}_N)^{\tran}\bar{Q}\bar{A}x\right.
+        \\
+        &\quad+(\bar{B}\bm{u}_N)^{\tran}\bar{Q}\bar{B}\bm{u}_N+\bm{u}_N^{\tran}\bar{R}\bm{u}_N+(\bar{A}x)^{\tran}S\bm{u}_N
+        \\
+        &\left.\quad+(\bar{B}\bm{u}_N)^{\tran}S\bm{u}_N+\bm{u}_N^{\tran}S^{\tran}\bar{A}x+\bm{u}_N^{\tran}S^{\tran}\bar{B}\bm{u}_N\right) 
+    \end{align}
+\end{subequations}
+If we expand the cost function and drop the constant term $(\bar{A}x)^{\tran}\bar{Q}\bar{A}x$, we obtain:
+\begin{subequations}
+    \begin{align}
+        \mathbb{P}_N(x): \minimise_{\bm{u_N}} \,
+        &\tfrac{1}{2}\left((\bar{A}x)^{\tran}\bar{Q}\bar{B}\bm{u}_N+(\bar{B}\bm{u}_N)^{\tran}\bar{Q}\bar{A}x\right.
+        \\
+        &\quad+(\bar{B}\bm{u}_N)^{\tran}\bar{Q}\bar{B}\bm{u}_N+\bm{u}_N^{\tran}\bar{R}\bm{u}_N+(\bar{A}x)^{\tran}S\bm{u}_N 
+        \\
+        &\left.\quad+(\bar{B}\bm{u}_N)^{\tran}S\bm{u}_N+\bm{u}_N^{\tran}S^{\tran}\bar{A}x+\bm{u}_N^{\tran}S^{\tran}\bar{B}\bm{u}_N \right) 
+        \\
+        &=\tfrac{1}{2}\left( (\bar{A}x)^{\tran}(\bar{Q}\bar{B}+S)\bm{u}_N+\bm{u}_N^{\tran}(\bar{B}^{\tran}\bar{Q}+S^{\tran})\bar{A}x\right.
+        \\
+        &\left.\quad+\bm{u}_N^{\tran}(\bar{B}^{\tran}\bar{Q}\bar{B}+\bar{R}+\bar{B}^{\tran}S+S^{\tran}\bar{B})\bm{u}_N \right)
+        \\
+        &=\tfrac{1}{2}\bm{u}_N^{\tran}(\bar{R}+\bar{B}^{\tran}\bar{Q}\bar{B}+\bar{B}^{\tran}S+S^{\tran}\bar{B})\bm{u}_N
+        \\
+        &\quad+(\bar{B}^{\tran}\bar{Q}\bar{A}x+S^{\tran}\bar{A}x)^{\tran}\bm{u}_N
+    \end{align}
+\end{subequations}
+This is a quadratic optimisation problem with Hessian
+$\bar{R}+\bar{B}^{\tran}\bar{Q}\bar{B}+\bar{B}^{\tran}S+S^{\tran}\bar{B}$.
+Recall that $\begin{bsmallmatrix}Q&S\\S^{\tran}&R\end{bsmallmatrix}\succcurlyeq 0, Q\in \mathbb{S}^n_+, R\in \mathbb{S}^m_{++}, P_f\in \mathbb{S}^n_{+}$.
+As a result, $\bar{Q}\in\Sp^{Nn},\ R\in\Spp^{Nm}$ and
+$\bar{R}+\bar{B}^{\tran}\bar{Q}\bar{B}+\bar{B}^{\tran}S+S^{\tran}\bar{B}\in\Spp^{Nm}$
+and $\mathbb{P}_N(x)$ is a convex optimisation problem.
+A $\bm{u}_N^{\star}$ is a minimiser iff
+$(\bar{R}+\bar{B}^{\tran}\bar{Q}\bar{B}+\bar{B}^{\tran}S+S^{\tran}\bar{B})\bm{u}_N^{\star}+\bar{B}^{\tran}\bar{Q}\bar{A}x+S^{\tran}\bar{A}x=0$
+and the problem has the unique solution:
+\begin{equation}
+    \bm{u}_N^{\star}=-(\bar{R}+\bar{B}^{\tran}\bar{Q}\bar{B}+\bar{B}^{\tran}S+S^{\tran}\bar{B})^{-1}(\bar{B}^{\tran}\bar{Q}\bar{A}x+S^{\tran}\bar{A}x)
+\end{equation}
+\
 \\ \\
 (iv) Solve Problem $\mathbb{P}_N$ by using the dynamic programming method.
 \\ \\
 \textbf{Solusion:}
+We can expand the problem $\mathbb{P}_N$ and add two items and then rearrange it:
 \begin{align}
-    &
+    \minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+    & \sum_{t=0}^{N-1}\textstyle\frac{1}{2}
     \begin{bmatrix}
         x_t\\
         u_t
@@ -223,11 +541,39 @@ where $\begin{bsmallmatrix}Q&S\\S^{\tran}&R\end{bsmallmatrix}\succcurlyeq 0, Q\i
     \begin{bmatrix}
         x_t\\
         u_t
-    \end{bmatrix}\notag\\
-    &=x_t^{\tran}Qx_t+u_tRu_t+x_t^{\tran}Su_t+u_t^{\tran}S^{\tran}x_t\notag\\
-    &=x_t^{\tran}Qx_t+u_tRu_t+x_t^{\tran}Su_t+u_t^{\tran}S^{\tran}x_t+x_t^{\tran}SR^{-1}S^{\tran}x_t-x_t^{\tran}SR^{-1}S^{\tran}x_t\notag\\
-    &=x_t^{\tran}(Q-SR^{-1}S^{\tran})x_t+(u_t+R^{-1}S^{\tran}x_t)^{\tran}R(u_t+R^{-1}S^{\tran}x_t)
+    \end{bmatrix}+\tfrac{1}{2}x_N^{\tran}P_fx_N
+    \\
+    =\minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+    &\sum_{t=0}^{N-1}\textstyle\frac{1}{2}
+    (x_t^{\tran}Qx_t+u_t^{\tran}Ru_t+x_t^{\tran}Su_t+u_t^{\tran}S^{\tran}x_t
+    +x_N^{\tran}P_fx_N)
+    \\
+    =\minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+    &\sum_{t=0}^{N-1}\textstyle\frac{1}{2}
+    (\underbracket[0.5pt]{x_t^{\tran}Qx_t+u_t^{\tran}Ru_t+x_t^{\tran}Su_t+u_t^{\tran}S^{\tran}x_t}_{\text{original items}}
+    +\underbracket[0.5pt]{x_t^{\tran}SR^{-1}S^{\tran}x_t-x_t^{\tran}SR^{-1}S^{\tran}x_t}_{\text{added items}}
+    \\
+    &\qquad+x_N^{\tran}P_fx_N)
+    \\
+    =\minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
+    &\sum_{t=0}^{N-1}\textstyle\frac{1}{2}
+    (\underbracket[0.5pt]{x_t^{\tran}(Q-SR^{-1}S^{\tran})x_t}_{\text{PartA}}+\underbracket[0.5pt]{(u_t+R^{-1}S^{\tran}x_t)^{\tran}R(u_t+R^{-1}S^{\tran}x_t)}_{\text{PartB}}
+    \\
+    &\qquad+x_N^{\tran}P_fx_N)
     \label{eq:P_N_matrix_rewrite}
+\end{align}
+\begin{align}
+    \mathrm{PartA}&=x_t^{\tran}Qx_t-x_t^{\tran}SR^{-1}S^{\tran}x_t
+    \\
+    &=x_t^{\tran}(Q-SR^{-1}S^{\tran})x_t
+    \\
+    \mathrm{PartB}&=u_t^{\tran}Ru_t+x_t^{\tran}Su_t+u_t^{\tran}S^{\tran}x_t+x_t^{\tran}SR^{-1}S^{\tran}x_t
+    \\
+    &=u_t^{\tran}Ru_t+x_t^{\tran}S\!\!\!\!\!\!\underbracket[0.5pt]{R^{-1}R}_{\text{added items}}\!\!\!\!\!u_t+u_t^{\tran}\!\!\!\!\!\!\underbracket[0.5pt]{RR^{-1}}_{\text{added items}}\!\!\!\!\!S^{\tran}x_t+x_t^{\tran}S\!\!\!\!\!\!\underbracket[0.5pt]{R^{-1}R}_{\text{added items}}\!\!\!\!\!R^{-1}S^{\tran}x_t
+    \\
+    &=(u_t^{\tran}+x_t^{\tran}SR^{-1})R(u_t+R^{-1}S^{\tran}x_t)
+    \\
+    &=(u_t+R^{-1}S^{\tran}x_t)^{\tran}R(u_t+R^{-1}S^{\tran}x_t)
 \end{align}
 Let
 \begin{equation}
@@ -251,9 +597,9 @@ The problem changes to
 \begin{subequations}
     \begin{align}
         \mathbb{P}_N(x): \minimise_{\substack{u_0,u_1,\ldots,u_{N-1}\\ x_0,x_1,\ldots,x_N}} \,
-         & \sum_{t=0}^{N-1}\left(\textstyle\frac{1}{2}
+         & \sum_{t=0}^{N-1}\left(\tfrac{1}{2}
          x_t^{\tran}\tilde{Q}x_t+\tilde{u}_t^{\tran}R\tilde{u}_t\right) 
-         +\frac{1}{2}x_N^{\tran}P_fx_N,
+         +\tfrac{1}{2}x_N^{\tran}P_fx_N,
         \\
         \text{subject to: }\,
          & x_{t+1} = \tilde{A}x_t+B\tilde{u}_t, \forall t\in\N_{[0, N-1]},
@@ -320,8 +666,8 @@ We have
     \tilde{u}_{N-1}^{\star}=&\kappa_1^{\star}(x_{N-1}^{\star})=K_1x_{N-1}^{\star},\notag\\
     x_N^{\star}=&\tilde{A}x_{N-1}^{\star}+B\tilde{u}_{N-1}^{\star}.\notag
 \end{align}
-\
-\\
+Finally, we get the solutions by using the dynamic programming method.
+\\ \\ \\
 Next, consider the following infinite-horizon optimal control problem
 \begin{subequations}
     \begin{align}
@@ -453,19 +799,41 @@ In those conditions, the dynamic programming iterates, $V^{\star}_t$, converge
     P=A^{\tran}PA-(A^{\tran}PB+S)(R+B^{\tran}PB)^{-1}(B^{\tran}PA+S^{\tran})+Q.
     \label{eq:P}
 \end{equation}
-\
 \\
-\textbf{Proof:} In $\mathbb{P}_{\infty}(x)$, we have
+\begin{proof}
+In $\mathbb{P}_{\infty}(x)$, we have
 \begin{equation}
     P=\tilde{Q}+\tilde{A}^{\tran}(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)\tilde{A}.
 \end{equation}
 where $Q\in \mathbb{S}^n_+, R\in \mathbb{S}^m_{++}, \tilde{Q}=Q-SR^{-1}S^{\tran}, \tilde{A}=A-BR^{-1}S^{\tran}$.
+\\
+We try to expanding Equation \eqref{eq:P_N}:
 \begin{align}
-    P&=\tilde{Q}+\tilde{A}^{\tran}(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)\tilde{A}\notag\\
-    &=Q-SR^{-1}S^{\tran}+(A-BR^{-1}S^{\tran})^{\tran}(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)(A-BR^{-1}S^{\tran})\notag\\
-    &=Q-SR^{-1}S^{\tran}+(A^{\tran}-SR^{-1\tran}B^{\tran})(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)(A-BR^{-1}S^{\tran})\notag\\
-    &=Q-SR^{-1}S^{\tran}+(A^{\tran}-SR^{-1\tran}B^{\tran})(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)(A-BR^{-1}S^{\tran})\notag\\
+    P&=\tilde{Q}+\tilde{A}^{\tran}(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)\tilde{A}
+    \\
+    &=Q-SR^{-1}S^{\tran}+(A-BR^{-1}S^{\tran})^{\tran}(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)(A-BR^{-1}S^{\tran})
+    \\
+    &=Q-SR^{-1}S^{\tran}+(A^{\tran}-SR^{-1}B^{\tran})(P-PB(R+B^{\tran}PB)^{-1}B^{\tran}P)(A-BR^{-1}S^{\tran})
+    \\
+    &=Q-SR^{-1}S^{\tran}+A^{\tran}PA-A^{\tran}PBR^{-1}S^{\tran}-SR^{-1}B^{\tran}PA+SR^{-1}B^{\tran}PBR^{-1}S^{\tran}
+    \\
+    &\quad-A^{\tran}PB(R+B^{\tran}PB)^{-1}B^{\tran}PA+A^{\tran}PB(R+B^{\tran}PB)^{-1}B^{\tran}PBR^{-1}S^{\tran}
+    \\
+    &\quad+SR^{-1}B^{\tran}PB(R+B^{\tran}PB)^{-1}B^{\tran}PA-SR^{-1}B^{\tran}PB(R+B^{\tran}PB)^{-1}B^{\tran}PBR^{-1}S^{\tran}
+    \\
+    &=Q+A^{\tran}PA-(A^{\tran}PB+S)(R+B^{\tran}PB)^{-1}(B^{\tran}PA+S^{\tran})
+    % \\
+    % &=Q+A^{\tran}PA+S(R^{-1}+R^{-1}B^{\tran}PB(R+B^{\tran}PB)^{-1}B^{\tran}PBR^{-1})S^{\tran}
 \end{align}
+Thus, the optimal value of $\mathbb{P}_{\infty}(x)$, if it exists, is given by $V(x)=\frac{1}{2}x^{\tran}Px$ where $P\in \mathbb{S}^n_{++}$ Snsatisfies the algebraic equation
+\begin{equation}
+    P=A^{\tran}PA-(A^{\tran}PB+S)(R+B^{\tran}PB)^{-1}(B^{\tran}PA+S^{\tran})+Q.
+\end{equation}
+% It is too complex to us, we use the Python to calculate the answer in question 1.1 (vii). It shows that the answer by Equation \eqref{eq:P} equals to the answer by Equation \eqref{eq:P_N}.
+% The Python code: \href{https://github.com/Gczmy/ELE8088/blob/main/Coursework1/Python_code/2_vii.py}{Question 1.2 (vii)}.
+\end{proof}
+\
+\\ \\
 (vii) Let $A = \begin{bsmallmatrix}1&0\\1&1\end{bsmallmatrix}, B = \begin{bsmallmatrix}1\\0\end{bsmallmatrix}, Q = I_2, R = 2$ and $S=\begin{bsmallmatrix}-0.5\\ \ \ 0.5\end{bsmallmatrix}$. The optimal value of $\mathbb{P}_N$ that you determined in question (iv) has the form $V^{\star}_N(x)=\frac{1}{2}x^{\tran}P_Nx$, where $P_N = P_N(P_0)$ depends on $P_0 = P_f$.
 Write a Python program that computes $P_N$ (given $N$ and $P_f$) and approximate $\lim_{N\to \infty}P_N(P_0)$ for
 different values of $P_0$. Verify that this limit satisfies Equation \eqref{eq:P}.
@@ -634,8 +1002,21 @@ for all $x\in\R^n$. This holds if
 % \end{align}
 \end{proof}
 (iii) Prove or disprove (by providing a counterexample) that if $\rho(A)=1$, the system $x_{t+1}=f(x_t)$ is asymptotically stable.
-\\ \\
-\textbf{Proof:} 
+\\
+\begin{proof}
+    We know that $\rho(A)=1$, we can assume that 
+    \begin{equation}
+        x_{t+1}=Ax_t, 
+    \end{equation}
+    where $A=1$.
+    \\
+    So we can get
+    \begin{equation}
+        x_{t+1}=x_t, 
+    \end{equation}
+    It is obviously that $x_{t+1}$ not converge to 0, so the system is not asymptotically stable.
+\end{proof}
+\
 \\ \\
 % Subsection: MPC
 % ^^^^^^^^^^^^^^^
