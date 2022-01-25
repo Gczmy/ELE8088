@@ -157,21 +157,27 @@ if and only if $Q\in \mathbb{S}^n_{++}$.
     \\
     &=\{x\in\R^n:x^{\tran}Qx\leq\alpha\}
 \end{align}
-We are trying to prove that $\mathrm{lev}_{\leq \alpha}f$ are bounded, i.e., there is an $M\geq 0$ such that
+We are trying to prove that $\mathrm{lev}_{\leq \alpha}g$ are bounded, i.e., there is an $M\geq 0$ such that
 % \begin{equation}
 %     \{x\in\R^n:\tfrac{1}{2}x^{\tran}Qx+q^{\tran}x+c\leq\alpha\}\subseteq \mathcal{B}_M
 % \end{equation}
 \begin{equation}
     \{x\in\R^n:\tfrac{1}{2}x^{\tran}Qx\leq\alpha\}\subseteq \mathcal{B}_M
+    \label{eq:lev_prove_1}
 \end{equation}
 \begin{equation}
     \lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \tfrac{1}{2}x^{\tran}Qx\leq \lambda_{\mathrm{max}}(Q)\left\lVert x\right\rVert ^2
+    \label{eq:lev_prove_2}
 \end{equation}
 \begin{align}
-    \Longrightarrow &\lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \alpha\\
+    \Longrightarrow &\lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \alpha
+    \label{eq:lev_prove_3}
+    \\
     \Longrightarrow &\left\lVert x\right\rVert \leq \sqrt{\frac{\alpha}{\lambda_{\mathrm{min}}(Q)}}=:M
+    \label{eq:lev_prove_4}
 \end{align}
-
+Hence $g(x)=\tfrac{1}{2}x^{\tran}Qx$ is level-bounded if and only if $Q\in \mathbb{S}^n_{++}$.
+\\
 % \begin{equation}
 %     \{x\in\R^n:x^{\tran}Qx\leq\alpha\}\subseteq \mathcal{B}_M
 % \end{equation}
@@ -182,13 +188,13 @@ We are trying to prove that $\mathrm{lev}_{\leq \alpha}f$ are bounded, i.e., the
 %     \Longrightarrow &\lambda_{\mathrm{min}}(Q)\left\lVert x\right\rVert ^2\leq \alpha\\
 %     \Longrightarrow &\left\lVert x\right\rVert \leq \sqrt{\frac{\alpha}{\lambda_{\mathrm{min}}(Q)}}:=M
 % \end{align}
-Thus, if $M\geq 0$ exists, then $\alpha\geq 0$, then
-\begin{align}
-    \lambda_{\mathrm{min}}(Q)\geq 0,\ &\lambda_{\mathrm{min}}(Q)\leq\lambda(Q)\leq\lambda_{\mathrm{max}}(Q)\\
-    \Longrightarrow&\lambda(Q)\geq 0\\
-    \Longrightarrow &Q\in \mathbb{S}^n_{++}
-\end{align}
-We know that
+% Thus, if $M\geq 0$ exists, then $\alpha\geq 0$, then
+% \begin{align}
+%     \lambda_{\mathrm{min}}(Q)\geq 0,\ &\lambda_{\mathrm{min}}(Q)\leq\lambda(Q)\leq\lambda_{\mathrm{max}}(Q)\\
+%     \Longrightarrow&\lambda(Q)\geq 0\\
+%     \Longrightarrow &Q\in \mathbb{S}^n_{++}
+% \end{align}
+Then, we try to prove the more general case, we know that from \emph{Exercise 21 (Completion of square) in handout X1}
 \begin{align}
     x^{\tran}Qx-2b^{\tran}x=(x-Q^{-1}b)^{\tran}Q(x-Q^{-1}b)-b^{\tran}Q^{-1}b.
 \end{align}
@@ -196,6 +202,29 @@ Then we have
 \begin{align}
     \tfrac{1}{2}x^{\tran}Qx+q^{\tran}x+c=\tfrac{1}{2}\left( (x+Q^{-1}q)^{\tran}Q(x+Q^{-1}q)-q^{\tran}Q^{-1}q \right)+c .
 \end{align}
+% We can assume that
+% \begin{align}
+%     &-q^{\tran}Q^{-1}q + c=0
+%     \\
+%     \Longrightarrow &c=q^{\tran}Q^{-1}q
+% \end{align}
+% Thus, 
+% \begin{align}
+%     g(x)=\tfrac{1}{2} (x+Q^{-1}q)^{\tran}Q(x+Q^{-1}q)
+% \end{align}
+From \eqref{eq:lev_prove_1}\eqref{eq:lev_prove_2}\eqref{eq:lev_prove_3}\eqref{eq:lev_prove_4}, we can know that
+\begin{align}
+    g(x)=\tfrac{1}{2} (x+Q^{-1}q)^{\tran}Q(x+Q^{-1}q)
+\end{align}
+is level-bounded if and only if $Q\in \mathbb{S}^n_{++}$ at the same time to make sure $Q^{-1}$ exists, so $Q\in \Sp$.
+\\
+So if we plus a constant $-\tfrac{1}{2}q^{\tran}Q^{-1}q +c$
+\begin{align}
+    &g(x)=\tfrac{1}{2}\left( (x+Q^{-1}q)^{\tran}Q(x+Q^{-1}q)-q^{\tran}Q^{-1}q \right)+c
+    \\
+    &g(x)=\tfrac{1}{2}x^{\tran}Qx+q^{\tran}x+c
+\end{align}
+is level-bounded if and only if $Q\in \mathbb{S}^n_{++}$ at the same time to make sure $Q^{-1}$ exists, so $Q\in \Sp$.
 Conclusion: the function $g:\R^n\to \R$ given by $g(x) = \frac{1}{2}x^{\tran}Qx+q^{\tran}x+c$ with $Q\in \mathbb{S}^n_+$ is level-bounded
 if and only if $Q\in \mathbb{S}^n_{++}$.
 \end{proof}
