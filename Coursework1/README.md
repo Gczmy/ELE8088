@@ -3,7 +3,7 @@
 ## Coursework - Part 1
 The coursework (mini project) assignment is [available here](https://canvas.qub.ac.uk/courses/16077/files/2273114?wrap=1 "assignment")
 ***
-**Due** 31 Jan 2022 by 16:00 **Points** 0 **Submitting** a file upload **File** types pdf **Available** after 25 Oct at 7:30
+**Due** 31 Jan 2022 by 16:00 **Points** 0 **Submitting** a file upload **File types** pdf **Available** after 25 Oct at 7:30
 ***
 
 ### **Deadline**
