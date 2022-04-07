@@ -57,7 +57,7 @@ def measurement_update(y_t, x_predicted, sigma_predicted):
     Returns the corrected state and covariance estimates after the output
     is measured
     """
-    f = C_t @ sigma_predicted @ C_t.T + R_t
+    f = C_t @ sigma_predicted @ C_t.T + D_t @ Sigma_w @ D_t.T + R_t
     output_error = y_t - C_t @ x_predicted
     x_corrected = x_predicted + sigma_predicted @ C_t.T @ output_error / f[0, 0]
     sigma_corrected = sigma_predicted - sigma_predicted @ C_t.T / f[0, 0] @ C_t @ sigma_predicted
@@ -79,7 +79,7 @@ def update_F(sigma_predicted):
     Returns the corrected state and covariance estimates after the output
     is measured
     """
-    f = C_t @ sigma_predicted @ C_t.T + R_t
+    f = C_t @ sigma_predicted @ C_t.T + D_t @ Sigma_w @ D_t.T + R_t
     F = sigma_predicted - sigma_predicted @ C_t.T / f[0, 0] @ C_t @ A_t
     return F
 

@@ -5,6 +5,7 @@
 # @Software: PyCharm
 
 import numpy as np
+import control as ctrl
 import matplotlib.pyplot as plt
 
 # Define the parameters
@@ -34,6 +35,20 @@ v = np.random.normal(0, R_t)
 x_0 = np.random.multivariate_normal((2, 1), P_0)
 x_0 = np.reshape(x_0, (2, 1))
 
+# check Riccati recursion
+controllable_matrix = ctrl.ctrb(A_t.T, C_t.T)
+controllable_matrix = np.linalg.matrix_rank(controllable_matrix)
+print("(A, B) ctrl matrix rank:")
+print(controllable_matrix)
+C = np.linalg.cholesky(G_t @ Q_t @ G_t.T)
+print("G_t @ Q_t @ G_t.T:")
+print(G_t @ Q_t @ G_t.T)
+print("C @ C.T:")
+print(C @ C.T)
+observability_matrix = ctrl.obsv(A_t, C)
+obsv_matrix_rank = np.linalg.matrix_rank(observability_matrix)
+print("(A, C) obsv matrix rank:")
+print(obsv_matrix_rank)
 
 def state_update(x, u_t):
     """
@@ -57,7 +72,7 @@ def measurement_update(y_t, x_predicted, sigma_predicted):
     Returns the corrected state and covariance estimates after the output
     is measured
     """
-    F = C_t @ sigma_predicted @ C_t.T + R_t
+    F = C_t @ sigma_predicted @ C_t.T + D_t @ Sigma_w @ D_t.T + R_t
     output_error = y_t - C_t @ x_predicted
     x_corrected = x_predicted + sigma_predicted @ C_t.T @ np.linalg.inv(F) @ output_error
     sigma_corrected = sigma_predicted - sigma_predicted @ C_t.T @ np.linalg.inv(F) @ C_t @ sigma_predicted
